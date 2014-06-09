@@ -1,0 +1,74 @@
+﻿@model WebRole1.Models.APInvoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>APInvoice</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Record_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Record_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PO_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PO_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice_Type_cd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice_Type_cd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.APInvoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

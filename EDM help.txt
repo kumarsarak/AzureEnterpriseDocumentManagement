@@ -1,0 +1,44 @@
+http://www.asp.net/mvc/tutorials/mvc-4/getting-started-with-aspnet-mvc4/adding-a-controller
+
+http://www.leapinggorilla.com/blog/Read/1015/custom-role-providers-with-windows-authentication---part-2-roleprovider-and-integration
+
+https://www.youtube.com/watch?v=ear_AcCVdx8
+
+http://weblogs.asp.net/jgalloway/archive/2011/04/28/looking-at-how-asp-net-mvc-authorize-interacts-with-asp-net-forms-authorization.aspx
+
+
+
+adfs to Azure
+http://www.developerfusion.com/article/121561/integrating-active-directory-into-azure/
+
+
+
+http://musikane.com/youtube.com.data-youtube.com.youtube-mp3.org.file-youtube.org/s0Fwn7Rf9NY
+
+http://www.stafaband.info/download/mp3/s0Fwn7Rf9NY.html
+
+
+
+
+https://edmaccess-sb.accesscontrol.windows.net/FederationMetadata/2007-06/FederationMetadata.xml
+http://devedm.cloudapp.net
+
+Here is my federation metadata: https://iam.univar.com/fed/idp/metadata
+
+Here is my signing/assertion certificate: https://iam.univar.com/fed/idp/cert
+
+Here is my SAML 2 endpoint: https://iam.univar.com/fed/idp/samlv20
+
+
+
+https://www.youtube.com/watch?v=NBVsHuc3OIE
+http://csharp-video-tutorials.blogspot.com/2013/09/part-92-ajax-with-aspnet-mvc.html
+
+
+
+
+
+http://msdn.microsoft.com/en-us/library/ee517285.aspx
+http://www.vankeyenberg.be/?p=1281
+http://convective.wordpress.com/2011/10/13/on-not-using-owner-with-the-azure-appfabric-service-bus/
+http://www.codeproject.com/Articles/262564/Azure-Access-Control-Authenticating-with-Google-Ac

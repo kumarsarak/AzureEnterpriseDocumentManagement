@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="EDM" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-01.2.3">
+  <Role name="WebRole1">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=edmdevlog;AccountKey=chrv9jIQLEfDvcPzLvpwUiUqnz37o0XLLsKzX79ioPLZ6fFapxY/UZF2Gh6Yu5UvBYsyh83Yr1Zv3AuiR5Q9dA==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="eaadmin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDIh94lgOYmiQgB1HGvipWAwDQYJKoZIhvcNAQEBBQAEggEAED2URVzGHnSwkpgjbBF01SaxB8W1Py2fvaqsrr+0MbT/xh/Kk/vOKYPkZyGs4hvZwJNm07qubmwIKtTzdKCOWD1d1YwGxQIXLCu7zEDYZrdHXfoYORUyfQX4L+NXCoiAEjIVrY31Box1nij+NjihLQqmcA9kwGGxdgeLoNwS6ehUUUHkHiOUCB/nXqc3IUUpZZLB0FGhoq8y94IMPtF4Ed9POVzSs8tP6deuqK4FkwzVTLR0FJ9D5uXstBirsPq4qzbxPFm7YZh/YFCLDFzK+91A1ngAwV1E0hukGa/WR0QCLtyL31tLg0z6zkCjmWx9YUMgCx7t0TkJ6yQlyw9+SDAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECESTuc534OSwgBB37g+GLzsjfs8b/37ths2l" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-05-07T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="AE1AF3FD3B03E7ADBFB65C33EF93E0D18FEAFEC4" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

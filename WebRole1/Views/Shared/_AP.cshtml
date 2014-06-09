@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebRole1.Models.APInvoice>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Record_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PO_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Type_cd)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PO_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Type_cd)
+        </td>
+        <td>
+            <!--
+            @Html.ActionLink("Edit", "Edit", new { id=item.APInvoiceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.APInvoiceID }) |
+                -->
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a> |
+            @Html.ActionLink("Delete", "Delete", new { id=item.APInvoiceID })
+        </td>
+        
+    </tr>
+}
+
+</table>

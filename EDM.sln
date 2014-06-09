@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRole1", "WebRole1\WebRole1.csproj", "{634ED3A7-307E-4397-A798-5E81C549C3D2}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "EDM", "EDM\EDM.ccproj", "{5B3F64AC-9512-4394-A7E0-ECB8F18F4406}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EDM", "EDM", "{E3976948-89CA-40CA-B8AD-1501C154C3F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{634ED3A7-307E-4397-A798-5E81C549C3D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634ED3A7-307E-4397-A798-5E81C549C3D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634ED3A7-307E-4397-A798-5E81C549C3D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634ED3A7-307E-4397-A798-5E81C549C3D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3F64AC-9512-4394-A7E0-ECB8F18F4406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3F64AC-9512-4394-A7E0-ECB8F18F4406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3F64AC-9512-4394-A7E0-ECB8F18F4406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3F64AC-9512-4394-A7E0-ECB8F18F4406}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B3F64AC-9512-4394-A7E0-ECB8F18F4406} = {E3976948-89CA-40CA-B8AD-1501C154C3F1}
+		{634ED3A7-307E-4397-A798-5E81C549C3D2} = {E3976948-89CA-40CA-B8AD-1501C154C3F1}
+	EndGlobalSection
+EndGlobal

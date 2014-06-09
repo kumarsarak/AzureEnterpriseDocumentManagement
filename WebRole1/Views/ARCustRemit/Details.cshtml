@@ -1,0 +1,82 @@
+﻿@model WebRole1.Models.ARCustRemit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ARCustRemit</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Record_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Record_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chk_Deposit_Dt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chk_Deposit_Dt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chk_Serial_Num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chk_Serial_Num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chk_Transit_Num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chk_Transit_Num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chk_Account_Num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chk_Account_Num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lockbox)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lockbox)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Has_Action_Item)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Has_Action_Item)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lawson_Customer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lawson_Customer)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ARCustRemitID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

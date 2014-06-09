@@ -1,0 +1,168 @@
+﻿@model IEnumerable<WebRole1.Models.APInvoice>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
+<script src="~/Scripts/jquery-1.10.2.js"  type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#searchap").click(function () {
+
+           
+
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val() },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                    $("#divPartialViewAP").html("<h1>No Results</h1>");
+                }
+
+
+            });
+
+        });
+    
+
+    
+    $(function () {
+        $("#recordnumber").autocomplete({
+            source: '@Url.Action("GetAutoCompleteData")'
+
+        });
+    });
+
+        $("#recordnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/APInvoice/Search",
+            data: { recordnumber: $("#recordnumber").val(), invoicedate: "", invoicenumber: "", vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
+            success: function (data) {
+                $("#divPartialViewAP").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+    $("#invoicedate").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/APInvoice/Search",
+            data: { recordnumber: "", invoicedate: $("#invoicedate").val(), invoicenumber: "", vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
+            success: function (data) {
+                $("#divPartialViewAP").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+    $("#invoicenumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/APInvoice/Search",
+            data: { recordnumber: "", invoicedate: "", invoicenumber: $("#invoicenumber").val(), vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
+            success: function (data) {
+                $("#divPartialViewAP").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+    $("#vendornumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/APInvoice/Search",
+            data: { recordnumber: "", invoicedate: "", invoicenumber: "", vendornumber: $("#vendornumber").val(), vendorname: "", ponumber: "", invoicetypecd: "" },
+            success: function (data) {
+                $("#divPartialViewAP").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+    $("#vendorname").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/APInvoice/Search",
+            data: { recordnumber: "", invoicedate: "", invoicenumber: "", vendornumber: "", vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "" },
+            success: function (data) {
+                $("#divPartialViewAP").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+    
+
+        //
+   });
+
+
+</script>
+
+<h2>APInvoices</h2>
+
+
+<table class="table">
+<tr>
+<td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+</tr>
+<tr>
+<td>Invoice Date: </td><td>@Html.TextBox("invoicedate")</td>
+</tr>
+<tr>
+<td>Invoice_Number: </td><td>@Html.TextBox("invoicenumber")</td>
+</tr>
+<tr>
+<td>Vendor_Number: </td><td>@Html.TextBox("vendornumber")</td>
+</tr>
+<tr>
+<td>Vendor_Name: </td><td>@Html.TextBox("vendorname")</td>
+</tr>
+<tr>
+<td>Invoice Date: </td><td>@Html.TextBox("ponumber")</td>
+</tr>
+<tr>
+<td>PO Number: </td><td>@Html.TextBox("invoicetypecd")</td>
+</tr>
+<tr>
+<td><input type="submit" id="searchap" value="Search" /></td>
+</tr>
+</table>
+
+              
+<div id="divPartialViewAP">
+    @Html.Partial("_AP")
+</div>
+
+

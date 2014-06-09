@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebRole1.Models.ARCustRemit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<!--
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    -->
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Record_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Chk_Deposit_Dt)
+        </th>
+        <th>
+            <!--
+            @Html.DisplayNameFor(model => model.Chk_Serial_Num)
+                -->
+            Check Number
+        </th>
+        <th>
+            <!--
+            @Html.DisplayNameFor(model => model.Chk_Transit_Num)
+                -->
+            Routing Number
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Chk_Account_Num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lockbox)
+        </th>
+        <!--
+        <th>
+            @Html.DisplayNameFor(model => model.Has_Action_Item)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lawson_Customer)
+        </th>
+            -->
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Deposit_Dt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Serial_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Transit_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Account_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lockbox)
+        </td>
+        <!--
+        <td>
+            @Html.DisplayFor(modelItem => item.Has_Action_Item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lawson_Customer)
+        </td>
+            -->
+        <td>
+            <!--
+            @Html.ActionLink("Edit", "Edit", new { id=item.ARCustRemitID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ARCustRemitID }) |
+                -->
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ARCustRemitID })
+        </td>
+    </tr>
+}
+
+</table>
