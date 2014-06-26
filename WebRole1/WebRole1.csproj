@@ -301,6 +301,7 @@
     <Content Include="Views\Shared\_AP.cshtml" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.cache" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Views\Shared\_AR.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

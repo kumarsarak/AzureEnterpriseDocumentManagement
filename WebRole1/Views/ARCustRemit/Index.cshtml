@@ -1,89 +1,176 @@
 ﻿@model IEnumerable<WebRole1.Models.ARCustRemit>
 
-@{
-    ViewBag.Title = "Index";
-}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
+<script src="~/Scripts/jquery-1.10.2.js"  type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
 
-<h2>Index</h2>
-<!--
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-    -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#searchap").click(function () {
+
+           
+
+            $.ajax({
+                type: "POST",
+                url: "/ARCustRemit/Search",
+                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val() },
+                success: function (data) {
+                    $("#divPartialViewAR").html(data);
+                },
+                error: function () {
+                    $("#divPartialViewAR").html("<h1>No Results</h1>");
+                }
+
+
+            });
+
+        });
+    
+
+    
+        $(function () {
+            $("#recordnumber").autocomplete({
+                source: '@Url.Action("GetAutoCompleteData")'
+
+            });
+        });
+
+        $("#recordnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#chkdepdate").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: "", chkdepdate: $("#chkdepdate").val(), checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#checknumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: "", chkdepdate: "", checknumber: $("#checknumber").val(), routingnumber: "", chkaccnumber: "", lockbox: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#routingnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: $("#routingnumber").val(), chkaccnumber: "", lockbox: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#chkaccnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: $("#chkaccnumber").val(), lockbox: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#lockbox").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/ARCustRemit/Search",
+                data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: $("#lockbox").val() },
+                success: function (data) {
+                    $("#divPartialViewAR").html(data);
+                },
+                error: function () {
+                }
+
+
+            });
+
+        });
+
+        //
+   });
+
+
+</script>
+
+<h2>AR Customer Remit</h2>
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Record_Number)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Chk_Deposit_Dt)
-        </th>
-        <th>
-            <!--
-            @Html.DisplayNameFor(model => model.Chk_Serial_Num)
-                -->
-            Check Number
-        </th>
-        <th>
-            <!--
-            @Html.DisplayNameFor(model => model.Chk_Transit_Num)
-                -->
-            Routing Number
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Chk_Account_Num)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lockbox)
-        </th>
-        <!--
-        <th>
-            @Html.DisplayNameFor(model => model.Has_Action_Item)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lawson_Customer)
-        </th>
-            -->
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Record_Number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Chk_Deposit_Dt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Chk_Serial_Num)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Chk_Transit_Num)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Chk_Account_Num)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lockbox)
-        </td>
-        <!--
-        <td>
-            @Html.DisplayFor(modelItem => item.Has_Action_Item)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lawson_Customer)
-        </td>
-            -->
-        <td>
-            <!--
-            @Html.ActionLink("Edit", "Edit", new { id=item.ARCustRemitID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ARCustRemitID }) |
-                -->
-            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ARCustRemitID })
-        </td>
-    </tr>
-}
-
+<tr>
+<td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+</tr>
+<tr>
+<td>Check Deposit Date: </td><td>@Html.TextBox("chkdepdate")</td>
+</tr>
+<tr>
+<td>Check Number: </td><td>@Html.TextBox("checknumber")</td>
+</tr>
+<tr>
+<td>Routing Number: </td><td>@Html.TextBox("routingnumber")</td>
+</tr>
+<tr>
+<td>Check Account Number: </td><td>@Html.TextBox("chkaccnumber")</td>
+</tr>
+<tr>
+<td>Lockbox: </td><td>@Html.TextBox("lockbox")</td>
+</tr>
+<tr>
+<td><input type="submit" id="searchap" value="Search" /></td>
+</tr>
 </table>
+
+              
+<div id="divPartialViewAR">
+    @Html.Partial("_AR")
+</div>

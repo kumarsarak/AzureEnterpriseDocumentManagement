@@ -22,7 +22,62 @@ namespace WebRole1.Controllers
         // GET: /ARCustRemit/
         public async Task<ActionResult> Index()
         {
-            return View(await db.ARCustRemits.ToListAsync());
+            var arcustremits = from m in db.ARCustRemits select m;
+            return View(await arcustremits.ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox)
+        {
+            var arcustremits = from m in db.ARCustRemits select m;
+            if (!String.IsNullOrEmpty(recordnumber))
+            {
+                arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
+            }
+
+            if (!string.IsNullOrEmpty(chkdepdate))
+            {
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.ToString() == chkdepdate);
+            }
+
+            if (!String.IsNullOrEmpty(checknumber))
+            {
+                arcustremits = arcustremits.Where(c => c.Chk_Serial_Num.Contains(checknumber));
+            }
+
+            if (!String.IsNullOrEmpty(routingnumber))
+            {
+                arcustremits = arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber));
+            }
+
+            if (!String.IsNullOrEmpty(chkaccnumber))
+            {
+                arcustremits = arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber));
+            }
+
+            if (!String.IsNullOrEmpty(lockbox))
+            {
+                arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+            return PartialView("_AR", await arcustremits.ToListAsync());
+
+
+        }
+
+        public JsonResult GetAutoCompleteData(string term)
+        {
+            var arcustremits = db.ARCustRemits.Where(m => m.Record_Number.StartsWith(term)).Select(y => y.Record_Number).ToList();
+
+            /* var recordnumbers = from r in apinvoices select r.Record_Number;
+             if (!String.IsNullOrEmpty(term))
+             {
+                 apinvoices = apinvoices.Where(a => a.Record_Number.StartsWith(term));
+                 return recordnumbers.ToList();
+             }
+         */
+
+            return Json(arcustremits, JsonRequestBehavior.AllowGet);
         }
 /*
         // GET: /ARCustRemit/Details/5
