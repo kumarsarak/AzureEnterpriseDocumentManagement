@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebRole1.Controllers
 {
@@ -19,16 +21,94 @@ namespace WebRole1.Controllers
     {
         private APAppDBContext db = new APAppDBContext();
 
-        public async Task<ActionResult> Index()
+        public ViewResult Index(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
-            var apinvoices = from m in db.APInvoices select m;
-            return View(await apinvoices.ToListAsync());
+            
+            if (NoParams(recordnumber, invoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd))
+            {
+                return NoParamSearch(sortOrder, page);
+            }
+            else
+            {
+                return SearchLink(recordnumber, invoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd, sortOrder, page);
+                
+            }
+
+        }
+
+        private bool NoParams(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd)
+        {
+            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicedate) && String.IsNullOrEmpty(invoicenumber) && String.IsNullOrEmpty(vendornumber) && String.IsNullOrEmpty(vendorname) && String.IsNullOrEmpty(ponumber) && String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicetypecd))
+                return true;
+            else
+                return false;
+        }
+
+        private ViewResult NoParamSearch(string sortOrder, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
+            ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
+            var apinvoices = db.APInvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+
+
+            switch (sortOrder)
+            {
+                case "vendor_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name);
+                    break;
+                case "vendor":
+                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name);
+                    break;
+                case "invoicetype_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd);
+                    break;
+                case "invoicetype":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd);
+                    break;
+                case "date":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date);
+                    break;
+                default:
+                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date);
+                    break;
+            }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            return View(apinvoices.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
-        public async Task<PartialViewResult> Search(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd)
+        public async Task<PartialViewResult> Search(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
+            ViewBag.Currentrecordnumber = recordnumber;
+            ViewBag.Currentinvoicedate = invoicedate;
+            ViewBag.Currentinvoicenumber = invoicenumber;
+            ViewBag.Currentvendornumber = vendornumber;
+            ViewBag.Currentvendorname = vendorname;
+            ViewBag.Currentponumber = ponumber;
+            ViewBag.Currentinvoicetypecd = invoicetypecd;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
+            ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
+
+
+
+            page = 1;
             var apinvoices = from m in db.APInvoices select m;
+            if (apinvoices.Count() > 100)
+            {
+                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+            }
+            
+            
+            
             if (!String.IsNullOrEmpty(recordnumber))
             {
                 apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
@@ -64,9 +144,118 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
             }
 
-            return PartialView("_AP", await apinvoices.ToListAsync());
+            switch (sortOrder)
+            {
+                case "vendor_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name);
+                    break;
+                case "vendor":
+                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name);
+                    break;
+                case "invoicetype_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd);
+                    break;
+                case "invoicetype":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd);
+                    break;
+                case "date":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date);
+                    break;
+                default:
+                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date);
+                    break;
+            }
 
-            
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            //return PartialView("_AP", await apinvoices.ToListAsync());
+            return PartialView("_AP", apinvoices.ToPagedList(pageNumber, pageSize));
+
+        }
+
+        public ViewResult SearchLink(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
+        {
+            ViewBag.Currentrecordnumber = recordnumber;
+            ViewBag.Currentinvoicedate = invoicedate;
+            ViewBag.Currentinvoicenumber = invoicenumber;
+            ViewBag.Currentvendornumber = vendornumber;
+            ViewBag.Currentvendorname = vendorname;
+            ViewBag.Currentponumber = ponumber;
+            ViewBag.Currentinvoicetypecd = invoicetypecd;
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
+            ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
+
+            var apinvoices = from m in db.APInvoices select m;
+            if (apinvoices.Count() > 100)
+            {
+                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+            }
+
+            if (!String.IsNullOrEmpty(recordnumber))
+            {
+                apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
+            }
+
+            if (!string.IsNullOrEmpty(invoicedate))
+            {
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.ToString() == invoicedate);
+            }
+
+            if (!String.IsNullOrEmpty(invoicenumber))
+            {
+                apinvoices = apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber));
+            }
+
+            if (!String.IsNullOrEmpty(vendornumber))
+            {
+                apinvoices = apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber));
+            }
+
+            if (!String.IsNullOrEmpty(vendorname))
+            {
+                apinvoices = apinvoices.Where(e => e.Vendor_Name.Contains(vendorname));
+            }
+
+            if (!String.IsNullOrEmpty(ponumber))
+            {
+                apinvoices = apinvoices.Where(f => f.PO_Number.Contains(ponumber));
+            }
+
+            if (!String.IsNullOrEmpty(invoicetypecd))
+            {
+                apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
+            }
+
+            switch (sortOrder)
+            {
+                case "vendor_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name);
+                    break;
+                case "vendor":
+                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name);
+                    break;
+                case "invoicetype_desc":
+                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd);
+                    break;
+                case "invoicetype":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd);
+                    break;
+                case "date":
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date);
+                    break;
+                default:
+                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date);
+                    break;
+            }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+            return View(apinvoices.ToPagedList(pageNumber, pageSize));
+
         }
 
         

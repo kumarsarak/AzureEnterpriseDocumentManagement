@@ -20,7 +20,7 @@
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
-                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val() },
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
                 },
@@ -43,82 +43,82 @@
     });
 
         $("#recordnumber").keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "/APInvoice/Search",
-            data: { recordnumber: $("#recordnumber").val(), invoicedate: "", invoicenumber: "", vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
-            success: function (data) {
-                $("#divPartialViewAP").html(data);
-            },
-            error: function () {
-            }
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                }
 
 
-        });
-
-    });
-
-    $("#invoicedate").keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "/APInvoice/Search",
-            data: { recordnumber: "", invoicedate: $("#invoicedate").val(), invoicenumber: "", vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
-            success: function (data) {
-                $("#divPartialViewAP").html(data);
-            },
-            error: function () {
-            }
-
-
-        });
+            });
 
     });
 
-    $("#invoicenumber").keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "/APInvoice/Search",
-            data: { recordnumber: "", invoicedate: "", invoicenumber: $("#invoicenumber").val(), vendornumber: "", vendorname: "", ponumber: "", invoicetypecd: "" },
-            success: function (data) {
-                $("#divPartialViewAP").html(data);
-            },
-            error: function () {
-            }
+        $("#invoicedate").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                }
 
 
-        });
-
-    });
-
-    $("#vendornumber").keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "/APInvoice/Search",
-            data: { recordnumber: "", invoicedate: "", invoicenumber: "", vendornumber: $("#vendornumber").val(), vendorname: "", ponumber: "", invoicetypecd: "" },
-            success: function (data) {
-                $("#divPartialViewAP").html(data);
-            },
-            error: function () {
-            }
-
-
-        });
+            });
 
     });
 
-    $("#vendorname").keyup(function () {
-        $.ajax({
-            type: "POST",
-            url: "/APInvoice/Search",
-            data: { recordnumber: "", invoicedate: "", invoicenumber: "", vendornumber: "", vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "" },
-            success: function (data) {
-                $("#divPartialViewAP").html(data);
-            },
-            error: function () {
-            }
+        $("#invoicenumber").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                }
 
 
-        });
+            });
+
+    });
+
+        $("#vendornumber").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                }
+
+
+            });
+
+    });
+
+        $("#vendorname").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: "", invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                },
+                error: function () {
+                }
+
+
+            });
 
     });
 
