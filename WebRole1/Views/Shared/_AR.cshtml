@@ -1,41 +1,36 @@
-﻿@model IEnumerable<WebRole1.Models.ARCustRemit>
+﻿@model PagedList.IPagedList<WebRole1.Models.ARCustRemit>
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Record_Number)
+       <th>
+            @Html.DisplayName("Record_Number")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Chk_Deposit_Dt)
+            @Ajax.ActionLink("Chk_Deposit_Dt", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
+           
+            
         </th>
+        
         <th>
-            <!--
-            @Html.DisplayNameFor(model => model.Chk_Serial_Num)
-                -->
+           
             Check Number
         </th>
         <th>
-            <!--
-            @Html.DisplayNameFor(model => model.Chk_Transit_Num)
-                -->
+           
             Routing Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Chk_Account_Num)
+            @Html.DisplayName("Chk_Account_Num")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lockbox)
+            @Ajax.ActionLink("LockBox", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
         </th>
-        <!--
-        <th>
-            @Html.DisplayNameFor(model => model.Has_Action_Item)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lawson_Customer)
-        </th>
-            -->
-        <th></th>
+       
+       
     </tr>
 
 @foreach (var item in Model) {
@@ -78,3 +73,8 @@
 }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index") + "?" +
+    "recordnumber="+ViewBag.Currentrecordnumber+"&chkdepdate="+ViewBag.Currentchkdepdate+"&checknumber="+ViewBag.Currentchecknumber+"&routingnumber="+ViewBag.Currentroutingnumber+"&chkaccnumber="+ViewBag.Currentchkaccnumber+"&lockbox="+ViewBag.Currentlockbox+"&page="+page+"&sortOrder="+ViewBag.CurrentSort , PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPartialViewAR" }))

@@ -20,7 +20,7 @@
             $.ajax({
                 type: "POST",
                 url: "/ARCustRemit/Search",
-                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val() },
+                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAR").html(data);
                 },
@@ -46,7 +46,7 @@
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
-            data: { recordnumber: $("#recordnumber").val(), chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: "" },
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
             },
@@ -62,7 +62,7 @@
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
-            data: { recordnumber: "", chkdepdate: $("#chkdepdate").val(), checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: "" },
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
             },
@@ -78,7 +78,7 @@
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
-            data: { recordnumber: "", chkdepdate: "", checknumber: $("#checknumber").val(), routingnumber: "", chkaccnumber: "", lockbox: "" },
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
             },
@@ -94,7 +94,7 @@
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
-            data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: $("#routingnumber").val(), chkaccnumber: "", lockbox: "" },
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
             },
@@ -110,7 +110,7 @@
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
-            data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: $("#chkaccnumber").val(), lockbox: "" },
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
             },
@@ -126,7 +126,7 @@
             $.ajax({
                 type: "POST",
                 url: "/ARCustRemit/Search",
-                data: { recordnumber: "", chkdepdate: "", checknumber: "", routingnumber: "", chkaccnumber: "", lockbox: $("#lockbox").val() },
+                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAR").html(data);
                 },

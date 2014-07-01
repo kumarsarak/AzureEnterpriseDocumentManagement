@@ -38,7 +38,7 @@ namespace WebRole1.Controllers
 
         private bool NoParams(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd)
         {
-            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicedate) && String.IsNullOrEmpty(invoicenumber) && String.IsNullOrEmpty(vendornumber) && String.IsNullOrEmpty(vendorname) && String.IsNullOrEmpty(ponumber) && String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicetypecd))
+            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicedate) && String.IsNullOrEmpty(invoicenumber) && String.IsNullOrEmpty(vendornumber) && String.IsNullOrEmpty(vendorname) && String.IsNullOrEmpty(ponumber) && String.IsNullOrEmpty(invoicetypecd))
                 return true;
             else
                 return false;

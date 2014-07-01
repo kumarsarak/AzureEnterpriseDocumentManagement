@@ -9,9 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using WebRole1.Models;
 using System.Diagnostics;
+using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Configuration;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebRole1.Controllers
 {
@@ -19,17 +22,87 @@ namespace WebRole1.Controllers
     {
         private ARAppDBContext db = new ARAppDBContext();
 
-        // GET: /ARCustRemit/
-        public async Task<ActionResult> Index()
+        public ViewResult Index(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
-            var arcustremits = from m in db.ARCustRemits select m;
-            return View(await arcustremits.ToListAsync());
+
+            if (NoParams(recordnumber, chkdepdate, checknumber, routingnumber, chkaccnumber, lockbox))
+            {
+                return NoParamSearch(sortOrder, page);
+            }
+            else
+            {
+                return SearchLink(recordnumber, chkdepdate, checknumber, routingnumber, chkaccnumber, lockbox, sortOrder, page);
+
+            }
+
+        }
+
+        private bool NoParams(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox)
+        {
+            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(chkdepdate) && String.IsNullOrEmpty(checknumber) && String.IsNullOrEmpty(routingnumber) && String.IsNullOrEmpty(chkaccnumber) && String.IsNullOrEmpty(lockbox))
+                return true;
+            else
+                return false;
+        }
+
+        private ViewResult NoParamSearch(string sortOrder, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            var arcustremits = db.ARCustRemits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
+
+
+            switch (sortOrder)
+            {
+                
+                case "lockbox_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Lockbox);
+                    break;
+                case "lockbox":
+                    arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "date":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
+                    break;
+                default:
+                    arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt);
+                    break;
+            }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            return View(arcustremits.ToPagedList(pageNumber, pageSize));
+            //return PartialView("_AR", arcustremits.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
-        public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox)
+        public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
+            ViewBag.Currentrecordnumber = recordnumber;
+            ViewBag.Currentchkdepdate = chkdepdate;
+            ViewBag.Currentchecknumber = checknumber;
+            ViewBag.Currentroutingnumber = routingnumber;
+            ViewBag.Currentchkaccnumber = chkaccnumber;
+            ViewBag.Currentlockbox = lockbox;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+
+
+
+            page = 1;
             var arcustremits = from m in db.ARCustRemits select m;
+            if (arcustremits.Count() > 100)
+            {
+                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
+            }
+
+
+
             if (!String.IsNullOrEmpty(recordnumber))
             {
                 arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
@@ -60,10 +133,110 @@ namespace WebRole1.Controllers
                 arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
             }
 
-            return PartialView("_AR", await arcustremits.ToListAsync());
 
+            switch (sortOrder)
+            {
+                case "lockbox_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Lockbox);
+                    break;
+                case "lockbox":
+                    arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "date":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
+                    break;
+                default:
+                    arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt);
+                    break;
+            }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            //return PartialView("_AP", await apinvoices.ToListAsync());
+            return PartialView("_AR", arcustremits.ToPagedList(pageNumber, pageSize));
 
         }
+
+        public ViewResult SearchLink(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
+        {
+
+            ViewBag.Currentrecordnumber = recordnumber;
+            ViewBag.Currentchkdepdate = chkdepdate;
+            ViewBag.Currentchecknumber = checknumber;
+            ViewBag.Currentroutingnumber = routingnumber;
+            ViewBag.Currentchkaccnumber = chkaccnumber;
+            ViewBag.Currentlockbox = lockbox;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
+            ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+
+
+            var arcustremits = from m in db.ARCustRemits select m;
+            if (arcustremits.Count() > 100)
+            {
+                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
+            }
+
+            if (!String.IsNullOrEmpty(recordnumber))
+            {
+                arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
+            }
+
+            if (!string.IsNullOrEmpty(chkdepdate))
+            {
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.ToString() == chkdepdate);
+            }
+
+            if (!String.IsNullOrEmpty(checknumber))
+            {
+                arcustremits = arcustremits.Where(c => c.Chk_Serial_Num.Contains(checknumber));
+            }
+
+            if (!String.IsNullOrEmpty(routingnumber))
+            {
+                arcustremits = arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber));
+            }
+
+            if (!String.IsNullOrEmpty(chkaccnumber))
+            {
+                arcustremits = arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber));
+            }
+
+            if (!String.IsNullOrEmpty(lockbox))
+            {
+                arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "lockbox_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Lockbox);
+                    break;
+                case "lockbox":
+                    arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "date":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
+                    break;
+                default:
+                    arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt);
+                    break;
+            }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            return View(arcustremits.ToPagedList(pageNumber, pageSize));
+            //return PartialView("_AR", arcustremits.ToPagedList(pageNumber, pageSize));
+
+        }
+
+        
 
         public JsonResult GetAutoCompleteData(string term)
         {
