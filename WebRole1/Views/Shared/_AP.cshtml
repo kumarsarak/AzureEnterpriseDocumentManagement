@@ -9,7 +9,7 @@
             @Html.DisplayName("Record_Number")
         </th>
         <th>
-            @Ajax.ActionLink("Invoice_Date", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+            @Ajax.ActionLink("Invoice_Date", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
            
             
         </th>
@@ -20,14 +20,14 @@
             @Html.DisplayName("Vendor_Number")
         </th>
         <th>
-            @Html.ActionLink("Vendor_Name", "Index", new {sortOrder = ViewBag.VendorNameSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+            @Html.ActionLink("Vendor_Name", "Index", new {sortOrder = ViewBag.VendorNameSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
             
         </th>
         <th>
             @Html.DisplayName("PO_Number")
         </th>
         <th>
-            @Html.ActionLink("Invoice_Type_cd", "Index", new {sortOrder = ViewBag.InvoiceTypeSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+            @Html.ActionLink("Invoice_Type_cd", "Index", new {sortOrder = ViewBag.InvoiceTypeSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
             
         </th>
         
@@ -73,4 +73,4 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index") + "?" +
-    "recordnumber="+ViewBag.Currentrecordnumber+"&invoicedate="+ViewBag.Currentinvoicedate+"&invoicenumber="+ViewBag.Currentinvoicenumber+"&vendornumber="+ViewBag.Currentvendornumber+"&vendorname="+ViewBag.Currentvendorname+"&ponumber="+ViewBag.Currentponumber+"&invoicetypecd="+ViewBag.Currentinvoicetypecd+"&page="+page+"&sortOrder="+ViewBag.CurrentSort , PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPartialViewAP" }))
+    "recordnumber="+ViewBag.Currentrecordnumber+"&invoicedate="+ViewBag.Currentinvoicedate+"&toinvoicedate="+ViewBag.Currenttoinvoicedate+"&invoicenumber="+ViewBag.Currentinvoicenumber+"&vendornumber="+ViewBag.Currentvendornumber+"&vendorname="+ViewBag.Currentvendorname+"&ponumber="+ViewBag.Currentponumber+"&invoicetypecd="+ViewBag.Currentinvoicetypecd+"&page="+page+"&sortOrder="+ViewBag.CurrentSort , PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPartialViewAP" }))

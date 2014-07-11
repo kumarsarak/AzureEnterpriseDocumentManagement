@@ -22,24 +22,24 @@ namespace WebRole1.Controllers
     {
         private APAppDBContext db = new APAppDBContext();
 
-        public ViewResult Index(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
+        public ViewResult Index(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
-            
-            if (NoParams(recordnumber, invoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd))
+
+            if (NoParams(recordnumber, invoicedate, toinvoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd))
             {
                 return NoParamSearch(sortOrder, page);
             }
             else
             {
-                return SearchLink(recordnumber, invoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd, sortOrder, page);
+                return SearchLink(recordnumber, invoicedate, toinvoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd, sortOrder, page);
                 
             }
 
         }
 
-        private bool NoParams(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd)
+        private bool NoParams(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd)
         {
-            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicedate) && String.IsNullOrEmpty(invoicenumber) && String.IsNullOrEmpty(vendornumber) && String.IsNullOrEmpty(vendorname) && String.IsNullOrEmpty(ponumber) && String.IsNullOrEmpty(invoicetypecd))
+            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(invoicedate) && String.IsNullOrEmpty(toinvoicedate) && String.IsNullOrEmpty(invoicenumber) && String.IsNullOrEmpty(vendornumber) && String.IsNullOrEmpty(vendorname) && String.IsNullOrEmpty(ponumber) && String.IsNullOrEmpty(invoicetypecd))
                 return true;
             else
                 return false;
@@ -84,10 +84,11 @@ namespace WebRole1.Controllers
         }
 
         [HttpPost]
-        public async Task<PartialViewResult> Search(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
+        public async Task<PartialViewResult> Search(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
             ViewBag.Currentrecordnumber = recordnumber;
             ViewBag.Currentinvoicedate = invoicedate;
+            ViewBag.Currenttoinvoicedate = toinvoicedate;
             ViewBag.Currentinvoicenumber = invoicenumber;
             ViewBag.Currentvendornumber = vendornumber;
             ViewBag.Currentvendorname = vendorname;
@@ -98,7 +99,8 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
-
+            DateTime toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+            DateTime invoicedateparse = Convert.ToDateTime(invoicedate);
 
 
             page = 1;
@@ -115,9 +117,20 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if (!string.IsNullOrEmpty(invoicedate))
+            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
             {
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.ToString() == invoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
             }
 
             if (!String.IsNullOrEmpty(invoicenumber))
@@ -145,6 +158,10 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
             }
 
+            if (apinvoices.Count() > 100)
+            {
+                apinvoices = apinvoices.Take(100);
+            }
             switch (sortOrder)
             {
                 case "vendor_desc":
@@ -176,10 +193,11 @@ namespace WebRole1.Controllers
 
         }
 
-        public ViewResult SearchLink(string recordnumber, string invoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
+        public ViewResult SearchLink(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
             ViewBag.Currentrecordnumber = recordnumber;
             ViewBag.Currentinvoicedate = invoicedate;
+            ViewBag.Currenttoinvoicedate = toinvoicedate;
             ViewBag.Currentinvoicenumber = invoicenumber;
             ViewBag.Currentvendornumber = vendornumber;
             ViewBag.Currentvendorname = vendorname;
@@ -189,21 +207,31 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
+            DateTime toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+            DateTime invoicedateparse = Convert.ToDateTime(invoicedate);
 
             var apinvoices = from m in db.APInvoices select m;
-            if (apinvoices.Count() > 100)
-            {
-                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
-            }
+            
 
             if (!String.IsNullOrEmpty(recordnumber))
             {
                 apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if (!string.IsNullOrEmpty(invoicedate))
+            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
             {
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.ToString() == invoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
             }
 
             if (!String.IsNullOrEmpty(invoicenumber))
@@ -229,6 +257,11 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(invoicetypecd))
             {
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
+            }
+
+            if (apinvoices.Count() > 100)
+            {
+                apinvoices = apinvoices.Take(100);
             }
 
             switch (sortOrder)
