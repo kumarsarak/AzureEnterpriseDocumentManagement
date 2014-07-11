@@ -62,12 +62,12 @@
         </td>
             -->
         <td>
-            <!--
-            @Html.ActionLink("Edit", "Edit", new { id=item.ARCustRemitID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ARCustRemitID }) |
-                -->
-            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ARCustRemitID })
+             @{var separator = "|";}
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> 
+            @if (System.Web.HttpContext.Current.Session["Role"] != null && System.Web.HttpContext.Current.Session["Role"].ToString() == "ARAdmin")
+            {   @separator
+                @Html.ActionLink("  Delete", "Delete", new { id = item.ARCustRemitID })
+            }
         </td>
     </tr>
 }

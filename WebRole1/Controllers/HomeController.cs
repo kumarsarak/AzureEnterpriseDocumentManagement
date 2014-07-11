@@ -26,5 +26,10 @@ namespace WebRole1.Controllers
 
             return View();
         }
+
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
     }
 }

@@ -18,6 +18,7 @@ using PagedList;
 
 namespace WebRole1.Controllers
 {
+     [EdmAuthorize("ARAdmin", "ARUser")]
     public class ARCustRemitController : Controller
     {
         private ARAppDBContext db = new ARAppDBContext();
@@ -329,6 +330,7 @@ namespace WebRole1.Controllers
         }
 */
         // GET: /ARCustRemit/Delete/5
+        [EdmAuthorize("ARAdmin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -344,6 +346,7 @@ namespace WebRole1.Controllers
         }
 
         // POST: /ARCustRemit/Delete/5
+        [EdmAuthorize("ARAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -379,5 +382,7 @@ namespace WebRole1.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }

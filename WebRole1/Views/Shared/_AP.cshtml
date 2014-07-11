@@ -57,12 +57,12 @@
             @Html.DisplayFor(modelItem => item.Invoice_Type_cd)
         </td>
         <td>
-            <!--
-            @Html.ActionLink("Edit", "Edit", new { id=item.APInvoiceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.APInvoiceID }) |
-                -->
-            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a> |
-            @Html.ActionLink("Delete", "Delete", new { id=item.APInvoiceID })
+            @{var separator = "|";}
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a>
+            @if (System.Web.HttpContext.Current.Session["Role"] != null && System.Web.HttpContext.Current.Session["Role"].ToString() == "APAdmin")
+            {   @separator
+                @Html.ActionLink("  Delete", "Delete", new { id = item.APInvoiceID })
+            }
         </td>
         
     </tr>

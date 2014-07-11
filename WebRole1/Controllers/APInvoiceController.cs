@@ -17,6 +17,7 @@ using PagedList;
 
 namespace WebRole1.Controllers
 {
+    [EdmAuthorize("APAdmin", "APUser")]
     public class APInvoiceController : Controller
     {
         private APAppDBContext db = new APAppDBContext();
@@ -357,6 +358,7 @@ namespace WebRole1.Controllers
         }
 */
         // GET: /APInvoice/Delete/5
+        [EdmAuthorize("APAdmin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -372,6 +374,7 @@ namespace WebRole1.Controllers
         }
 
         // POST: /APInvoice/Delete/5
+        [EdmAuthorize("APAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -405,5 +408,7 @@ namespace WebRole1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

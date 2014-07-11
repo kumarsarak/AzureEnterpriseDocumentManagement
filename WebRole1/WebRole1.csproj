@@ -173,6 +173,7 @@
     <Compile Include="downloadDocument.aspx.designer.cs">
       <DependentUpon>downloadDocument.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EdmAuthorize.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,6 +310,7 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.cache" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\Shared\_AR.cshtml" />
+    <Content Include="Views\Home\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
