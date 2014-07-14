@@ -99,8 +99,9 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
-            DateTime toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-            DateTime invoicedateparse = Convert.ToDateTime(invoicedate);
+            DateTime toinvoicedateparse; DateTime invoicedateparse;
+           // if (!String.IsNullOrEmpty(toinvoicedate)) {toinvoicedateparse = Convert.ToDateTime(toinvoicedate);}
+           // if (!String.IsNullOrEmpty(toinvoicedate)) { invoicedateparse = Convert.ToDateTime(invoicedate); }
 
 
             page = 1;
@@ -119,17 +120,20 @@ namespace WebRole1.Controllers
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
             {
+                invoicedateparse = Convert.ToDateTime(invoicedate);
                 apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
             }
 
             if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
                 apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
             }
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
-
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                invoicedateparse = Convert.ToDateTime(invoicedate);
                 apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
             }
 
@@ -207,8 +211,7 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
-            DateTime toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-            DateTime invoicedateparse = Convert.ToDateTime(invoicedate);
+            DateTime toinvoicedateparse; DateTime invoicedateparse;
 
             var apinvoices = from m in db.APInvoices select m;
             
@@ -220,17 +223,20 @@ namespace WebRole1.Controllers
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
             {
+                invoicedateparse = Convert.ToDateTime(invoicedate);
                 apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
             }
 
             if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
                 apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
             }
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
-
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                invoicedateparse = Convert.ToDateTime(invoicedate);
                 apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
             }
 

@@ -23,24 +23,24 @@ namespace WebRole1.Controllers
     {
         private ARAppDBContext db = new ARAppDBContext();
 
-        public ViewResult Index(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
+        public ViewResult Index(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
 
-            if (NoParams(recordnumber, chkdepdate, checknumber, routingnumber, chkaccnumber, lockbox))
+            if (NoParams(recordnumber, chkdepdate, tochkdepdate, checknumber, routingnumber, chkaccnumber, lockbox))
             {
                 return NoParamSearch(sortOrder, page);
             }
             else
             {
-                return SearchLink(recordnumber, chkdepdate, checknumber, routingnumber, chkaccnumber, lockbox, sortOrder, page);
+                return SearchLink(recordnumber, chkdepdate, tochkdepdate, checknumber, routingnumber, chkaccnumber, lockbox, sortOrder, page);
 
             }
 
         }
 
-        private bool NoParams(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox)
+        private bool NoParams(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox)
         {
-            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(chkdepdate) && String.IsNullOrEmpty(checknumber) && String.IsNullOrEmpty(routingnumber) && String.IsNullOrEmpty(chkaccnumber) && String.IsNullOrEmpty(lockbox))
+            if (String.IsNullOrEmpty(recordnumber) && String.IsNullOrEmpty(chkdepdate) && String.IsNullOrEmpty(tochkdepdate) && String.IsNullOrEmpty(checknumber) && String.IsNullOrEmpty(routingnumber) && String.IsNullOrEmpty(chkaccnumber) && String.IsNullOrEmpty(lockbox))
                 return true;
             else
                 return false;
@@ -80,10 +80,11 @@ namespace WebRole1.Controllers
         }
 
         [HttpPost]
-        public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
+        public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
             ViewBag.Currentrecordnumber = recordnumber;
             ViewBag.Currentchkdepdate = chkdepdate;
+            ViewBag.Currenttochkdepdate = tochkdepdate;
             ViewBag.Currentchecknumber = checknumber;
             ViewBag.Currentroutingnumber = routingnumber;
             ViewBag.Currentchkaccnumber = chkaccnumber;
@@ -92,27 +93,38 @@ namespace WebRole1.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            DateTime tochkdepdateparse ;
+            DateTime chkdepdateparse ;
 
 
 
             page = 1;
             var arcustremits = from m in db.ARCustRemits select m;
-            if (arcustremits.Count() > 100)
-            {
-                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
-            }
-
-
 
             if (!String.IsNullOrEmpty(recordnumber))
             {
                 arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if (!string.IsNullOrEmpty(chkdepdate))
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
             {
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.ToString() == chkdepdate);
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
             }
+
+            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day && b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day));
+            }
+
 
             if (!String.IsNullOrEmpty(checknumber))
             {
@@ -132,6 +144,11 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(lockbox))
             {
                 arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+            if (arcustremits.Count() > 100)
+            {
+                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
             }
 
 
@@ -160,11 +177,12 @@ namespace WebRole1.Controllers
 
         }
 
-        public ViewResult SearchLink(string recordnumber, string chkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
+        public ViewResult SearchLink(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
 
             ViewBag.Currentrecordnumber = recordnumber;
             ViewBag.Currentchkdepdate = chkdepdate;
+            ViewBag.Currenttochkdepdate = tochkdepdate;
             ViewBag.Currentchecknumber = checknumber;
             ViewBag.Currentroutingnumber = routingnumber;
             ViewBag.Currentchkaccnumber = chkaccnumber;
@@ -173,22 +191,35 @@ namespace WebRole1.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            DateTime tochkdepdateparse;
+            DateTime chkdepdateparse;
 
 
             var arcustremits = from m in db.ARCustRemits select m;
-            if (arcustremits.Count() > 100)
-            {
-                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
-            }
+            
 
             if (!String.IsNullOrEmpty(recordnumber))
             {
                 arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if (!string.IsNullOrEmpty(chkdepdate))
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
             {
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.ToString() == chkdepdate);
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day && b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day));
             }
 
             if (!String.IsNullOrEmpty(checknumber))
@@ -209,6 +240,11 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(lockbox))
             {
                 arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+            if (arcustremits.Count() > 100)
+            {
+                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
             }
 
 
