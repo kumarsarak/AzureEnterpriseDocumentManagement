@@ -59,6 +59,7 @@
     <PublishProfile Include="Profiles\devEDMProduction.azurePubxml" />
     <PublishProfile Include="Profiles\devEDMProduction1.azurePubxml" />
     <PublishProfile Include="Profiles\devEDMStaging.azurePubxml" />
+    <PublishProfile Include="Profiles\testEDMProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
