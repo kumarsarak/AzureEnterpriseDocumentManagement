@@ -71,7 +71,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
 
 
@@ -168,7 +168,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
 
 
@@ -264,7 +264,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
 
 

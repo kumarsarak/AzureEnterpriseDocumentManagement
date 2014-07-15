@@ -76,7 +76,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
 
 
@@ -164,7 +164,7 @@ namespace WebRole1.Controllers
 
             if (apinvoices.Count() > 100)
             {
-                apinvoices = apinvoices.Take(100);
+                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
             }
             switch (sortOrder)
             {
@@ -188,7 +188,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
 
 
@@ -267,7 +267,7 @@ namespace WebRole1.Controllers
 
             if (apinvoices.Count() > 100)
             {
-                apinvoices = apinvoices.Take(100);
+                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
             }
 
             switch (sortOrder)
@@ -292,7 +292,7 @@ namespace WebRole1.Controllers
                     break;
             }
 
-            int pageSize = 4;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
             return View(apinvoices.ToPagedList(pageNumber, pageSize));
 
