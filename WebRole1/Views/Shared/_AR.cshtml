@@ -53,14 +53,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Lockbox)
         </td>
-        <!--
-        <td>
-            @Html.DisplayFor(modelItem => item.Has_Action_Item)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lawson_Customer)
-        </td>
-            -->
+        
         <td>
              @{var separator = "|";}
             <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> 
