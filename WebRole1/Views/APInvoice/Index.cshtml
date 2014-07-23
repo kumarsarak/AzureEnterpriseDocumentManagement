@@ -132,7 +132,7 @@
 
 </script>
 
-<h2>APInvoices</h2>
+<h2>AP Invoices</h2>
 
 
 <table class="table">
@@ -144,19 +144,20 @@
 <td>Invoice Date To: </td><td>@Html.TextBox("toinvoicedate")@Html.DisplayName(" mm/dd/yyyy")</td>
 </tr>
 <tr>
-<td>Invoice_Number: </td><td>@Html.TextBox("invoicenumber")</td>
+<td>Invoice Number: </td><td>@Html.TextBox("invoicenumber")</td>
 </tr>
 <tr>
-<td>Vendor_Number: </td><td>@Html.TextBox("vendornumber")</td>
+<td>Vendor Number: </td><td>@Html.TextBox("vendornumber")</td>
 </tr>
 <tr>
-<td>Vendor_Name: </td><td>@Html.TextBox("vendorname")</td>
+<td>Vendor Name: </td><td>@Html.TextBox("vendorname")</td>
 </tr>
 <tr>
 <td>PO Number: </td><td>@Html.TextBox("ponumber")</td>
 </tr>
 <tr>
-<td><input type="submit" id="searchap" value="Search" /></td>
+<td> <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+    </td>
 </tr>
 </table>
 
