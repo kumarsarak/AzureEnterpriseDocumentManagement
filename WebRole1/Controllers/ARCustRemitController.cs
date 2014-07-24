@@ -148,9 +148,15 @@ namespace WebRole1.Controllers
 
             if (arcustremits.Count() > 100)
             {
+                ViewBag.TotalARRecords = "Search Criteria returned " + arcustremits.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
                 arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
             }
+            else
+            {
+                ViewBag.TotalARRecords = "Your search criteria returned " + arcustremits.Count() + " record(s).";
+            }
 
+           
 
             switch (sortOrder)
             {
@@ -244,7 +250,12 @@ namespace WebRole1.Controllers
 
             if (arcustremits.Count() > 100)
             {
+                ViewBag.TotalARRecords = "Search Criteria returned " + arcustremits.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
                 arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
+            }
+            else
+            {
+                ViewBag.TotalARRecords = "Your search criteria returned " + arcustremits.Count() + " record(s).";
             }
 
 

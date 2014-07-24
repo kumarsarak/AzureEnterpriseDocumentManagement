@@ -106,10 +106,7 @@ namespace WebRole1.Controllers
 
             page = 1;
             var apinvoices = from m in db.APInvoices select m;
-            if (apinvoices.Count() > 100)
-            {
-                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
-            }
+           
             
             
             
@@ -164,7 +161,12 @@ namespace WebRole1.Controllers
 
             if (apinvoices.Count() > 100)
             {
+                ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
                 apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+            }
+            else
+            {
+                ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
             }
             switch (sortOrder)
             {
@@ -265,9 +267,14 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
             }
 
-            if (apinvoices.Count() > 100)
+             if (apinvoices.Count() > 100)
             {
+                ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
                 apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+            }
+            else
+            {
+                ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
             }
 
             switch (sortOrder)
