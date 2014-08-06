@@ -51,6 +51,7 @@ namespace WebRole1.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            ViewBag.CheckNumberSortParm = sortOrder == "checknumber" ? "checknumber_desc" : "checknumber";
             var arcustremits = db.ARCustRemits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
 
 
@@ -62,6 +63,12 @@ namespace WebRole1.Controllers
                     break;
                 case "lockbox":
                     arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "checknumber_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Chk_Serial_Num);
+                    break;
+                case "checknumber":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Serial_Num);
                     break;
                 case "date":
                     arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
@@ -93,6 +100,7 @@ namespace WebRole1.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            ViewBag.CheckNumberSortParm = sortOrder == "checknumber" ? "checknumber_desc" : "checknumber";
             DateTime tochkdepdateparse ;
             DateTime chkdepdateparse ;
 
@@ -128,7 +136,27 @@ namespace WebRole1.Controllers
 
             if (!String.IsNullOrEmpty(checknumber))
             {
-                arcustremits = arcustremits.Where(c => c.Chk_Serial_Num.Contains(checknumber));
+                var chksernumberfilter = checknumber;
+
+                if ((chksernumberfilter.StartsWith("*")) && (chksernumberfilter.EndsWith("*")))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Contains(chksernumberfilter));
+                }
+                else if (chksernumberfilter.StartsWith("*"))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().EndsWith(chksernumberfilter));
+                }
+                else if (chksernumberfilter.EndsWith("*"))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().StartsWith(chksernumberfilter));
+                }
+                else
+                {
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Equals(checknumber));
+                }
             }
 
             if (!String.IsNullOrEmpty(routingnumber))
@@ -140,6 +168,8 @@ namespace WebRole1.Controllers
             {
                 arcustremits = arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber));
             }
+
+            
 
             if (!String.IsNullOrEmpty(lockbox))
             {
@@ -165,6 +195,12 @@ namespace WebRole1.Controllers
                     break;
                 case "lockbox":
                     arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "checknumber_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Chk_Serial_Num);
+                    break;
+                case "checknumber":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Serial_Num);
                     break;
                 case "date":
                     arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
@@ -197,6 +233,7 @@ namespace WebRole1.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
+            ViewBag.CheckNumberSortParm = sortOrder == "checknumber" ? "checknumber_desc" : "checknumber";
             DateTime tochkdepdateparse;
             DateTime chkdepdateparse;
 
@@ -230,7 +267,27 @@ namespace WebRole1.Controllers
 
             if (!String.IsNullOrEmpty(checknumber))
             {
-                arcustremits = arcustremits.Where(c => c.Chk_Serial_Num.Contains(checknumber));
+                var chksernumberfilter = checknumber;
+
+                if ((chksernumberfilter.StartsWith("*")) && (chksernumberfilter.EndsWith("*")))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Contains(chksernumberfilter));
+                }
+                else if (chksernumberfilter.StartsWith("*"))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().EndsWith(chksernumberfilter));
+                }
+                else if (chksernumberfilter.EndsWith("*"))
+                {
+                    chksernumberfilter = chksernumberfilter.Replace("*", "");
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().StartsWith(chksernumberfilter));
+                }
+                else
+                {
+                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Equals(checknumber));
+                }
             }
 
             if (!String.IsNullOrEmpty(routingnumber))
@@ -266,6 +323,12 @@ namespace WebRole1.Controllers
                     break;
                 case "lockbox":
                     arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    break;
+                case "checknumber_desc":
+                    arcustremits = arcustremits.OrderByDescending(s => s.Chk_Serial_Num);
+                    break;
+                case "checknumber":
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Serial_Num);
                     break;
                 case "date":
                     arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);

@@ -18,8 +18,8 @@
         </th>
         
         <th>
-           
-            Check Number
+            @Ajax.ActionLink("Check Number", "Index", new { sortOrder = ViewBag.CheckNumberSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, tochkdepdate = ViewBag.Currenttochkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
+            
         </th>
         <th>
            
@@ -29,7 +29,7 @@
             @Html.DisplayName("Check Account Number")
         </th>
         <th>
-            @Ajax.ActionLink("Lockbox", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, tochkdepdate = ViewBag.Currenttochkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
+            @Ajax.ActionLink("Lockbox", "Index", new { sortOrder = ViewBag.LockBoxSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, tochkdepdate = ViewBag.Currenttochkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
         </th>
        
        
