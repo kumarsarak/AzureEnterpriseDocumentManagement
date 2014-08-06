@@ -9,6 +9,28 @@
     
     <script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script>
+        function debounce(fn, delay) {
+            var timer = null;
+            return function () {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    fn.apply(context, args);
+                }, delay);
+            };
+        }
+    </script>
+     <style>
+    .isloading {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background-image: url(http://salman-w.googlecode.com/svn/trunk/jquery-ui-autocomplete/loading.gif);
+}
+</style>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,7 +51,7 @@
                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li style="color:green;font-size:20px">DEV</li>
+                    <li style="color:green;font-size:20px">TEST</li>
                 </ul>
             </div>
         </div>

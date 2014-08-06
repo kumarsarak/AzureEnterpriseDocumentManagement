@@ -16,16 +16,18 @@
         $("#searchap").click(function () {
 
            
-
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/ARCustRemit/Search",
                 data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAR").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
                     $("#divPartialViewAR").html("<h1>No Results</h1>");
+                    $("#loading1").hide();
                 }
 
 
@@ -42,86 +44,101 @@
             });
         });
 
-        $("#recordnumber").keyup(function () {
+        $("#recordnumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
             data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
+                $("#loading1").hide();
             },
             error: function () {
+                $("#loading1").hide();
             }
 
 
         });
 
-    });
+        }, 1000));
 
      
-        $("#checknumber").keyup(function () {
+        $("#checknumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
             data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
+                $("#loading1").hide();
             },
             error: function () {
+                $("#loading1").hide();
             }
 
 
         });
 
-    });
+        }, 1000));
 
-        $("#routingnumber").keyup(function () {
+        $("#routingnumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
             data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
+                $("#loading1").hide();
             },
             error: function () {
+                $("#loading1").hide();
             }
 
 
         });
 
-    });
+        }, 1000));
 
-        $("#chkaccnumber").keyup(function () {
+        $("#chkaccnumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
         $.ajax({
             type: "POST",
             url: "/ARCustRemit/Search",
             data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
             success: function (data) {
                 $("#divPartialViewAR").html(data);
+                $("#loading1").hide();
             },
             error: function () {
+                $("#loading1").hide();
             }
 
 
         });
 
-    });
+        }, 1000));
 
-        $("#lockbox").keyup(function () {
+        $("#lockbox").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/ARCustRemit/Search",
                 data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAR").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-        });
+        }, 1000));
 
         //
    });
@@ -152,7 +169,7 @@
 <td>Lockbox: </td><td>@Html.TextBox("lockbox")</td>
 </tr>
 <tr>
-<td><button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+<td style="white-space:nowrap;"><button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button><div id="loading1" ></div>
 </td>
 </tr>
 </table>

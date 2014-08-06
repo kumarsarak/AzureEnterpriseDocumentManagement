@@ -16,16 +16,18 @@
         $("#searchap").click(function () {
 
            
-
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val(), sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
                     $("#divPartialViewAP").html("<h1>No Results</h1>");
+                    $("#loading1").hide();
                 }
 
 
@@ -42,87 +44,102 @@
         });
     });
 
-        $("#recordnumber").keyup(function () {
+        $("#recordnumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-    });
+        }, 1000));
 
        
 
-        $("#invoicenumber").keyup(function () {
+        $("#invoicenumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-    });
+        }, 1000));
 
-        $("#vendornumber").keyup(function () {
+        $("#vendornumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-    });
+        }, 1000));
 
-        $("#vendorname").keyup(function () {
+        $("#vendorname").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-        });
+        }, 1000));
 
-        $("#ponumber").keyup(function () {
+        $("#ponumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
             $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
                 success: function (data) {
                     $("#divPartialViewAP").html(data);
+                    $("#loading1").hide();
                 },
                 error: function () {
+                    $("#loading1").hide();
                 }
 
 
             });
 
-        });
+        }, 1000));
 
     
 
@@ -156,7 +173,7 @@
 <td>PO Number: </td><td>@Html.TextBox("ponumber")</td>
 </tr>
 <tr>
-<td> <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+<td style="white-space:nowrap;"> <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button><div id="loading1" ></div>
     </td>
 </tr>
 </table>
