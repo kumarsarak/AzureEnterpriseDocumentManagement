@@ -60,6 +60,7 @@
     <PublishProfile Include="Profiles\devEDMProduction1.azurePubxml" />
     <PublishProfile Include="Profiles\devEDMStaging.azurePubxml" />
     <PublishProfile Include="Profiles\testEDMProduction.azurePubxml" />
+    <PublishProfile Include="Profiles\EDMUnivarProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

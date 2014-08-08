@@ -16,7 +16,7 @@ namespace WebRole1
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "APInvoice", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "ARCustRemit", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
