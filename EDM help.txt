@@ -4,7 +4,10 @@ http://www.leapinggorilla.com/blog/Read/1015/custom-role-providers-with-windows-
 
 https://www.youtube.com/watch?v=ear_AcCVdx8
 
+http://www.codeproject.com/Tips/620420/MVC-Dynamic-Authorization
+
 http://weblogs.asp.net/jgalloway/archive/2011/04/28/looking-at-how-asp-net-mvc-authorize-interacts-with-asp-net-forms-authorization.aspx
+http://blogs.msdn.com/b/sajoshi/archive/2010/06/01/user-authentication-against-ad-and-roles-based-authorization-in-asp-net-mvc-part-i.aspx
 
 
 
@@ -42,3 +45,18 @@ http://msdn.microsoft.com/en-us/library/ee517285.aspx
 http://www.vankeyenberg.be/?p=1281
 http://convective.wordpress.com/2011/10/13/on-not-using-owner-with-the-azure-appfabric-service-bus/
 http://www.codeproject.com/Articles/262564/Azure-Access-Control-Authenticating-with-Google-Ac
+
+
+
+
+
+http://codebetter.com/johnvpetersen/2012/04/02/making-your-asp-net-web-apis-secure/
+for RSA keys rest
+
+
+'(((System.Data.Entity.DbContext)(db)).Database.Connection).ServerVersion' threw an exception of type 'System.InvalidOperationException'
+
+"Server=tcp:icnxgjyagc.database.windows.net,1433;Database=TestCmMigration;User ID=eaadmin@icnxgjyagc;Password=Password100;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;"
+
+http://code.msdn.microsoft.com/windowsdesktop/Upload-files-using-a-REST-13f16af2/sourcecode?fileId=48404&pathId=787905472
+http://www.c-sharpcorner.com/uploadfile/dhananjaycoder/upload-image-from-silverlight-to-azure-blob-using-wcf/
