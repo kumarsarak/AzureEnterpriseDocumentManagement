@@ -114,25 +114,6 @@ namespace WebRole1.Controllers
                 arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day && b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day));
-            }
-
 
             if (!String.IsNullOrEmpty(checknumber))
             {
@@ -170,10 +151,30 @@ namespace WebRole1.Controllers
             }
 
             
-
             if (!String.IsNullOrEmpty(lockbox))
             {
                 arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt >= chkdepdateparse.Date));
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt <= tochkdepdateparse.Date));
             }
 
             if (arcustremits.Count() > 100)
@@ -246,25 +247,6 @@ namespace WebRole1.Controllers
                 arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day && b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day));
-            }
-
             if (!String.IsNullOrEmpty(checknumber))
             {
                 var chksernumberfilter = checknumber;
@@ -303,6 +285,27 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(lockbox))
             {
                 arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
+            {
+                chkdepdateparse = Convert.ToDateTime(chkdepdate);
+                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
+
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt >= chkdepdateparse.Date));
+                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt <= tochkdepdateparse.Date));
             }
 
             if (arcustremits.Count() > 100)

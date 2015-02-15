@@ -115,24 +115,7 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
-            {
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
-            }
+            
 
             if (!String.IsNullOrEmpty(invoicenumber))
             {
@@ -157,6 +140,26 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(invoicetypecd))
             {
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
+            {
+                invoicedateparse = Convert.ToDateTime(invoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                invoicedateparse = Convert.ToDateTime(invoicedate);
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date));
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date));
             }
 
             if (apinvoices.Count() > 100)
@@ -223,25 +226,6 @@ namespace WebRole1.Controllers
                 apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
             }
 
-            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
-            {
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day && b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
-            }
-
             if (!String.IsNullOrEmpty(invoicenumber))
             {
                 apinvoices = apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber));
@@ -265,6 +249,26 @@ namespace WebRole1.Controllers
             if (!String.IsNullOrEmpty(invoicetypecd))
             {
                 apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
+            {
+                invoicedateparse = Convert.ToDateTime(invoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
+            }
+
+            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
+            }
+
+            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
+            {
+                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
+                invoicedateparse = Convert.ToDateTime(invoicedate);
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date));
+                apinvoices = apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date));
             }
 
              if (apinvoices.Count() > 100)
