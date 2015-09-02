@@ -2,17 +2,26 @@
 
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 <script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
-<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
-<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
-<script src="~/Scripts/jquery-1.10.2.js"  type="text/javascript"></script>
+
 <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
 
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<!--<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>-->
 
 
 
 <script type="text/javascript">
 
+    $(function () {
+        $("#chkdepdate").datepicker();
+    });
+
+    $(function () {
+        $("#tochkdepdate").datepicker();
+    });
+
     $(document).ready(function () {
+
         $("#searchap").click(function () {
 
            
@@ -43,6 +52,19 @@
 
             });
         });
+
+       /* var valuesToSend = [];
+
+        $("#download").click(function () {
+            valuesToSend = [];
+            $('input:checkbox:checked').each(function () {
+                var value = $(this).attr('value').toString();
+                value = value.trim();
+                valuesToSend.push(value);
+            });
+            window.location.href = "/downloadDocuments.aspx?recordNumber=" + valuesToSend.toString() + "&docType=AR";
+
+        });*/
 
    /*     
 
@@ -155,8 +177,8 @@
 <td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
 </tr>
 <tr>
-<td>Check Deposit Date From: </td><td>@Html.TextBox("chkdepdate")@Html.DisplayName(" mm/dd/yyyy")</td>
-<td>Check Deposit Date To: </td><td>@Html.TextBox("tochkdepdate")@Html.DisplayName(" mm/dd/yyyy")</td>
+<td>Check Deposit Date From: </td><td>@Html.TextBox("chkdepdate")</td>
+<td>Check Deposit Date To: </td><td>@Html.TextBox("tochkdepdate")</td>
 </tr>
 <tr>
 <td>Check Number: </td><td>@Html.TextBox("checknumber")</td>

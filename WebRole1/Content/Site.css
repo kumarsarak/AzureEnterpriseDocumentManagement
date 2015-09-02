@@ -40,3 +40,16 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/* Miscallaneous
+    ----------------------------------------------------------*/
+ .pic{ width:17px; 
+       height:17px; 
+       opacity: 1; 
+       filter: alpha(opacity=100); 
+ } 
+ /*.pic:hover { 
+     opacity: 0.3; filter: alpha(opacity=30); 
+    
+
+ } */

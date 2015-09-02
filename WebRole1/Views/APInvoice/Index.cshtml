@@ -2,17 +2,29 @@
 
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 <script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
-<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
-<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
-<script src="~/Scripts/jquery-1.10.2.js"  type="text/javascript"></script>
+
+
 <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
+
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<!--<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>-->
 
 
 
 
 <script type="text/javascript">
 
+    $(function () {
+        $("#invoicedate").datepicker();
+    });
+
+    $(function () {
+        $("#toinvoicedate").datepicker();
+    });
+
+
     $(document).ready(function () {
+
         $("#searchap").click(function () {
 
            
@@ -43,6 +55,19 @@
 
         });
     });
+
+  /*  var valuesToSend = [];
+
+    $("#download").click(function () {
+        valuesToSend = [];
+        $('input:checkbox:checked').each(function () {
+            var value = $(this).attr('value').toString();
+            value = value.trim();
+            valuesToSend.push(value);
+        });
+        window.location.href = "/downloadDocuments.aspx?recordNumber=" + valuesToSend.toString() + "&docType=AP";
+
+    });*/
 
         /*
 
@@ -159,8 +184,8 @@
 <td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
 </tr>
 <tr>
-<td>Invoice Date From: </td><td>@Html.TextBox("invoicedate")@Html.DisplayName(" mm/dd/yyyy")</td>
-<td>Invoice Date To: </td><td>@Html.TextBox("toinvoicedate")@Html.DisplayName(" mm/dd/yyyy")</td>
+<td>Invoice Date From: </td><td>@Html.TextBox("invoicedate")</td>
+<td>Invoice Date To: </td><td>@Html.TextBox("toinvoicedate")</td>
 </tr>
 <tr>
 <td>Invoice Number: </td><td>@Html.TextBox("invoicenumber")</td>

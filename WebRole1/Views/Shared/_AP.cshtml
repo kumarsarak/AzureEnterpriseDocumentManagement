@@ -3,12 +3,32 @@
 @using PagedList;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var valuesToSend = [];
+        
+        $("#download").click(function () {
+            valuesToSend = [];
+            $('input:checkbox:checked').each(function () {
+                var value = $(this).attr('value').toString();
+                value = value.trim();
+                valuesToSend.push(value);
+            });
+            window.location.href = "/downloadDocuments.aspx?recordNumber=" + valuesToSend.toString() + "&docType=AP";
+        
+        });
+    })
+</script>
+
 <div>
  <font color="red">@ViewBag.TotalAPRecords</font>
 </div>
 
 <table class="table">
     <tr>
+       <th></th>
         <th>
             @Html.DisplayName("Record Number")
         </th>
@@ -39,6 +59,9 @@
 
 @foreach (var item in Model) {
     <tr>
+       <td>
+            <input type="checkbox" name="downloadInputs" value="@item.Record_Number">
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Record_Number)
         </td>
@@ -62,10 +85,14 @@
         </td>
         <td>
             @{var separator = "|";}
-            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a>
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">
+                <img src="~/Content/images/Button-Download-icon.png" class="pic hvr-grow"  />
+            </a>
             @if (System.Web.HttpContext.Current.Session["Role"] != null && System.Web.HttpContext.Current.Session["Role"].ToString() == "APAdmin")
             {   @separator
-                @Html.ActionLink("  Delete", "Delete", new { id = item.APInvoiceID })
+                <a href="@Url.Action("Delete", new { id = item.APInvoiceID })" >
+                <img src="@Url.Content("~/Content/Images/delete-icon.png")" class="pic hvr-grow"  />
+                </a>
             }
         </td>
         
@@ -74,6 +101,10 @@
 
 </table>
 <br />
+
+<button type="button" id="download" class="btn btn-primary btn-sm" >Download</button>
+<br />
+
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index") + "?" +
