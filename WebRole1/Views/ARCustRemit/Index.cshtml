@@ -20,13 +20,14 @@
         $("#tochkdepdate").datepicker();
     });
 
+    var searchmethodar;
     $(document).ready(function () {
 
         $("#searchap").click(function () {
 
            
             $("#loading1").addClass("isloading");
-            $.ajax({
+            searchmethodar = $.ajax({
                 type: "POST",
                 url: "/ARCustRemit/Search",
                 data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
@@ -44,7 +45,22 @@
 
         });
     
+        function valueinsearchFields() {
+            if ($("#recordnumber").val() == '' && $("#chkdepdate").val() == '' && $("#tochkdepdate").val() == '' && $("#checknumber").val() == '' && $("#routingnumber").val() == '' && $("#chkaccnumber").val() == '' && $("#lockbox").val() == '')
+                return false;
+            else
+                return true;
 
+        }
+
+        $("#cancelap").click(function () {
+
+            if (valueinsearchFields()) {
+                searchmethodar.abort();
+            }
+            $("#divPartialViewAR").html("<h1>Search Cancelled</h1>");
+            $("#loading1").removeClass("isloading");
+        });
     
         $(function () {
             $("#recordnumber").autocomplete({
@@ -193,8 +209,10 @@
 <td>Lockbox: </td><td>@Html.TextBox("lockbox")</td>
 </tr>
 <tr>
-<td style="white-space:nowrap;"><button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button><div id="loading1" ></div>
-</td>
+   <td style="white-space:nowrap;" colspan ="2"> 
+        <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+        <button type="button" id="cancelap" class="btn btn-primary btn-sm">Cancel</button><div id="loading1"  style="min-width:64px; min-height:64px; float:right"></div>
+   </td>
 </tr>
 </table>
 

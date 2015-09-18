@@ -20,6 +20,15 @@ namespace WebRole1.Controllers
     [EdmAuthorize("APAdmin", "APUser")]
     public class APInvoiceController : Controller
     {
+
+        public System.Threading.CancellationToken cancellationToken;
+
+        public APInvoiceController()
+        {
+            System.Threading.CancellationTokenSource tokenSource = new System.Threading.CancellationTokenSource();
+            cancellationToken = tokenSource.Token;
+        }
+        
         private APAppDBContext db = new APAppDBContext();
 
         public ViewResult Index(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
@@ -83,6 +92,12 @@ namespace WebRole1.Controllers
             return View(apinvoices.ToPagedList(pageNumber, pageSize));
         }
 
+        private IQueryable<APInvoice> GetApInvoices()
+        {
+            var apinvoices = from m in db.APInvoices select m;
+            return apinvoices;
+        }
+        
         [HttpPost]
         public async Task<PartialViewResult> Search(string recordnumber, string invoicedate, string toinvoicedate, string invoicenumber, string vendornumber, string vendorname, string ponumber, string invoicetypecd, string sortOrder, int? page)
         {
@@ -105,67 +120,148 @@ namespace WebRole1.Controllers
 
 
             page = 1;
-            var apinvoices = from m in db.APInvoices select m;
+            IQueryable<APInvoice> apinvoices;
+            if (Response.IsClientConnected)
+            {
+                 apinvoices = await Task.Run(() => GetApInvoices());
+            }
+            else
+            {
+                 apinvoices = await Task.Run(() => GetApInvoices(), cancellationToken);
+            }
            
             
             
             
             if (!String.IsNullOrEmpty(recordnumber))
             {
-                apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(a => a.Record_Number.Contains(recordnumber)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(a => a.Record_Number.Contains(recordnumber)), cancellationToken);
+                }
             }
 
             
 
             if (!String.IsNullOrEmpty(invoicenumber))
             {
-                apinvoices = apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber));
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber)), cancellationToken);
+                }
             }
 
             if (!String.IsNullOrEmpty(vendornumber))
             {
-                apinvoices = apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber));
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber)), cancellationToken);
+                }
             }
 
             if (!String.IsNullOrEmpty(vendorname))
             {
-                apinvoices = apinvoices.Where(e => e.Vendor_Name.Contains(vendorname));
+                if (Response.IsClientConnected)
+                {
+
+                    apinvoices = await Task.Run(() =>apinvoices.Where(e => e.Vendor_Name.Contains(vendorname)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(e => e.Vendor_Name.Contains(vendorname)), cancellationToken);
+                }
             }
 
             if (!String.IsNullOrEmpty(ponumber))
             {
-                apinvoices = apinvoices.Where(f => f.PO_Number.Contains(ponumber));
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(f => f.PO_Number.Contains(ponumber)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(f => f.PO_Number.Contains(ponumber)), cancellationToken);
+                }
             }
 
             if (!String.IsNullOrEmpty(invoicetypecd))
             {
-                apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd)), cancellationToken);
+                }
             }
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
             {
                 invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day), cancellationToken);
+                }
             }
 
             if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
                 toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day), cancellationToken);
+                }
             }
 
             if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
             {
                 toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
                 invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date));
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date));
+                if (Response.IsClientConnected)
+                {
+
+                    apinvoices = await Task.Run(() =>apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date)));
+                    apinvoices = await Task.Run(() =>apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date)));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date)), cancellationToken);
+                    apinvoices = await Task.Run(() => apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date)), cancellationToken);
+                }
             }
 
             if (apinvoices.Count() > 100)
             {
                 ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
-                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+                if (Response.IsClientConnected)
+                {
+                    apinvoices = await Task.Run(() =>apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100));
+                }
+                else
+                {
+                    apinvoices = await Task.Run(() => apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100), cancellationToken);
+                }
             }
             else
             {

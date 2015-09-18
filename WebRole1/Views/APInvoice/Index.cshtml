@@ -22,14 +22,14 @@
         $("#toinvoicedate").datepicker();
     });
 
-
+    var searchmethod;
     $(document).ready(function () {
 
         $("#searchap").click(function () {
 
            
             $("#loading1").addClass("isloading");
-            $.ajax({
+            searchmethod = $.ajax({
                 type: "POST",
                 url: "/APInvoice/Search",
                 data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val(), sortOrder: "" },
@@ -46,8 +46,23 @@
             });
 
         });
-    
 
+        function valueinsearchFields() {
+            if ( $("#recordnumber").val() == '' && $("#invoicedate").val() == '' && $("#invoicenumber").val() == '' && $("#vendornumber").val() == '' && $("#vendorname").val() == '' && $("#ponumber").val() == '' )            
+                return false;
+            else
+                return true;
+
+        }
+    
+        $("#cancelap").click(function () {
+            
+            if (valueinsearchFields()) {
+                searchmethod.abort();
+            }
+            $("#divPartialViewAP").html("<h1>Search Cancelled</h1>");
+            $("#loading1").removeClass("isloading");
+        });
     
     $(function () {
         $("#recordnumber").autocomplete({
@@ -181,28 +196,32 @@
 
 <table class="table">
 <tr>
-<td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+<td >Record Number: </td><td>@Html.TextBox("recordnumber")</td>
 </tr>
 <tr>
 <td>Invoice Date From: </td><td>@Html.TextBox("invoicedate")</td>
 <td>Invoice Date To: </td><td>@Html.TextBox("toinvoicedate")</td>
 </tr>
 <tr>
-<td>Invoice Number: </td><td>@Html.TextBox("invoicenumber")</td>
+<td >Invoice Number: </td><td>@Html.TextBox("invoicenumber")</td>
 </tr>
 <tr>
-<td>Vendor Number: </td><td>@Html.TextBox("vendornumber")</td>
+<td >Vendor Number: </td><td>@Html.TextBox("vendornumber")</td>
 </tr>
 <tr>
-<td>Vendor Name: </td><td>@Html.TextBox("vendorname")</td>
+<td >Vendor Name: </td><td>@Html.TextBox("vendorname")</td>
 </tr>
 <tr>
-<td>PO Number: </td><td>@Html.TextBox("ponumber")</td>
+<td >PO Number: </td><td>@Html.TextBox("ponumber")</td>
 </tr>
 <tr>
-<td style="white-space:nowrap;"> <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button><div id="loading1" ></div>
+    <td style="white-space:nowrap;" colspan ="2"> 
+        <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+        <button type="button" id="cancelap" class="btn btn-primary btn-sm">Cancel</button><div id="loading1"  style="min-width:64px; min-height:64px; float:right"></div>
     </td>
+    
 </tr>
+
 </table>
 
               

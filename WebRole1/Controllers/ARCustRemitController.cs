@@ -21,6 +21,13 @@ namespace WebRole1.Controllers
      [EdmAuthorize("ARAdmin", "ARUser")]
     public class ARCustRemitController : Controller
     {
+        public System.Threading.CancellationToken cancellationToken;
+
+        public ARCustRemitController()
+        {
+            System.Threading.CancellationTokenSource tokenSource = new System.Threading.CancellationTokenSource();
+            cancellationToken = tokenSource.Token;
+        }
         private ARAppDBContext db = new ARAppDBContext();
 
         public ViewResult Index(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
@@ -86,7 +93,13 @@ namespace WebRole1.Controllers
             //return PartialView("_AR", arcustremits.ToPagedList(pageNumber, pageSize));
         }
 
-        [HttpPost]
+        private IQueryable<ARCustRemit> GetARCustRemits()
+        {
+            var arcustremits = from m in db.ARCustRemits select m;
+            return arcustremits;
+        }
+        
+         [HttpPost]
         public async Task<PartialViewResult> Search(string recordnumber, string chkdepdate, string tochkdepdate, string checknumber, string routingnumber, string chkaccnumber, string lockbox, string sortOrder, int? page)
         {
             ViewBag.Currentrecordnumber = recordnumber;
@@ -107,11 +120,28 @@ namespace WebRole1.Controllers
 
 
             page = 1;
-            var arcustremits = from m in db.ARCustRemits select m;
+            IQueryable<ARCustRemit> arcustremits;
+            if (Response.IsClientConnected)
+            {
+                arcustremits = await Task.Run(() => GetARCustRemits());
+            }
+            else
+            {
+                arcustremits = await Task.Run(() => GetARCustRemits(), cancellationToken);
+            }
+            
 
             if (!String.IsNullOrEmpty(recordnumber))
             {
-                arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(a => a.Record_Number.Contains(recordnumber)));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(a => a.Record_Number.Contains(recordnumber)), cancellationToken);
+                }
+                
             }
 
 
@@ -138,34 +168,76 @@ namespace WebRole1.Controllers
                 {
                     arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Equals(checknumber));
                 }
+
+                
             }
 
             if (!String.IsNullOrEmpty(routingnumber))
             {
-                arcustremits = arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber));
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber)));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber)), cancellationToken);
+                }
+                
             }
 
             if (!String.IsNullOrEmpty(chkaccnumber))
             {
-                arcustremits = arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber));
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber)));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber)), cancellationToken);
+                }
+                
             }
 
             
             if (!String.IsNullOrEmpty(lockbox))
             {
-                arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(f => f.Lockbox.Contains(lockbox)));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(f => f.Lockbox.Contains(lockbox)), cancellationToken);
+                }
+                
             }
 
             if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
             {
                 chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day), cancellationToken);
+                }
+                
             }
 
             if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
             {
                 tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
+                if (Response.IsClientConnected)
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day));
+                }
+                else
+                {
+                    arcustremits = await Task.Run(() => arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day), cancellationToken);
+                }
+                
             }
 
             if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
