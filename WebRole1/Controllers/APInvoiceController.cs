@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -114,178 +115,112 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
-            DateTime toinvoicedateparse; DateTime invoicedateparse;
-           // if (!String.IsNullOrEmpty(toinvoicedate)) {toinvoicedateparse = Convert.ToDateTime(toinvoicedate);}
-           // if (!String.IsNullOrEmpty(toinvoicedate)) { invoicedateparse = Convert.ToDateTime(invoicedate); }
+            DateTime? toinvoicedateparse = null; DateTime? invoicedateparse = null;
+            if (!String.IsNullOrEmpty(toinvoicedate)) { toinvoicedateparse = Convert.ToDateTime(toinvoicedate); }
+            if (!String.IsNullOrEmpty(invoicedate)) { invoicedateparse = Convert.ToDateTime(invoicedate); }
 
 
             page = 1;
-            IQueryable<APInvoice> apinvoices;
-            if (Response.IsClientConnected)
+            var apinvoices = new List<APInvoice>();
+
+            if (NoParams(recordnumber, invoicedate, toinvoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd))
             {
-                 apinvoices = await Task.Run(() => GetApInvoices());
+                apinvoices = db.APInvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList();
             }
             else
             {
-                 apinvoices = await Task.Run(() => GetApInvoices(), cancellationToken);
-            }
-           
-            
-            
-            
-            if (!String.IsNullOrEmpty(recordnumber))
-            {
-                if (Response.IsClientConnected)
+
+                SqlConnection oSQLConn = new SqlConnection();
+                oSQLConn.ConnectionString = ConfigurationManager.ConnectionStrings["APAppDBContext"].ConnectionString;
+
+                try
                 {
-                    apinvoices = await Task.Run(() => apinvoices.Where(a => a.Record_Number.Contains(recordnumber)));
+                    await oSQLConn.OpenAsync();
+                    SqlCommand cmd = new SqlCommand("GetAPInvoices", oSQLConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter fromInvoiceDateparam = new SqlParameter("@FromInvoiceDate", System.Data.SqlDbType.DateTime);
+                    fromInvoiceDateparam.Value = invoicedateparse;
+                    SqlParameter toInvoiceDateparam = new SqlParameter("@ToInvoiceDate", System.Data.SqlDbType.DateTime);
+                    toInvoiceDateparam.Value = toinvoicedateparse;
+
+                    cmd.Parameters.AddWithValue("@RecordNumber", recordnumber);
+                    cmd.Parameters.Add(fromInvoiceDateparam);
+                    cmd.Parameters.Add(toInvoiceDateparam);
+                    cmd.Parameters.AddWithValue("@InvoiceNumber", invoicenumber);
+                    cmd.Parameters.AddWithValue("@VendorNumber", vendornumber);
+                    cmd.Parameters.AddWithValue("@VendorName", vendorname);
+                    cmd.Parameters.AddWithValue("@PONumber", ponumber);
+
+                    await Task.Run(async () =>
+                    {
+                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync(cancellationToken))
+                        {
+                            while (await reader.ReadAsync(cancellationToken))
+                            {
+                                apinvoices.Add(new APInvoice
+                                {
+
+                                    //APInvoiceID = reader["APInvoiceID"].ToString(),
+                                    Record_Number = reader["Record_Number"].ToString(),
+                                    Invoice_Date = Convert.ToDateTime(reader["Invoice_Date"].ToString()),
+                                    Invoice_Number = reader["Invoice_Number"].ToString(),
+                                    Vendor_Number = reader["Vendor_Number"].ToString(),
+                                    Vendor_Name = reader["Vendor_Name"].ToString(),
+                                    PO_Number = reader["PO_Number"].ToString(),
+                                    Invoice_Type_cd = (reader["Invoice_Type_cd"] != null) ? reader["Invoice_Type_cd"].ToString() : null
+
+
+                                    //etc
+                                });
+                            }
+                        }
+                    }, cancellationToken);
+
+
+                }
+                catch (Exception ex)
+                {
+                }
+
+
+                if (apinvoices.Count() > 100)
+                {
+                    ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
+                    if (Response.IsClientConnected)
+                    {
+                        apinvoices = await Task.Run(() => apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList());
+                    }
+                    else
+                    {
+                        apinvoices = await Task.Run(() => apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList(), cancellationToken);
+                    }
                 }
                 else
                 {
-                    apinvoices = await Task.Run(() => apinvoices.Where(a => a.Record_Number.Contains(recordnumber)), cancellationToken);
+                    ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
                 }
+
             }
 
-            
-
-            if (!String.IsNullOrEmpty(invoicenumber))
-            {
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber)), cancellationToken);
-                }
-            }
-
-            if (!String.IsNullOrEmpty(vendornumber))
-            {
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber)), cancellationToken);
-                }
-            }
-
-            if (!String.IsNullOrEmpty(vendorname))
-            {
-                if (Response.IsClientConnected)
-                {
-
-                    apinvoices = await Task.Run(() =>apinvoices.Where(e => e.Vendor_Name.Contains(vendorname)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(e => e.Vendor_Name.Contains(vendorname)), cancellationToken);
-                }
-            }
-
-            if (!String.IsNullOrEmpty(ponumber))
-            {
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(f => f.PO_Number.Contains(ponumber)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(f => f.PO_Number.Contains(ponumber)), cancellationToken);
-                }
-            }
-
-            if (!String.IsNullOrEmpty(invoicetypecd))
-            {
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd)), cancellationToken);
-                }
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
-            {
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day), cancellationToken);
-                }
-            }
-
-            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day), cancellationToken);
-                }
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                if (Response.IsClientConnected)
-                {
-
-                    apinvoices = await Task.Run(() =>apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date)));
-                    apinvoices = await Task.Run(() =>apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date)));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date)), cancellationToken);
-                    apinvoices = await Task.Run(() => apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date)), cancellationToken);
-                }
-            }
-
-            if (apinvoices.Count() > 100)
-            {
-                ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
-                if (Response.IsClientConnected)
-                {
-                    apinvoices = await Task.Run(() =>apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100));
-                }
-                else
-                {
-                    apinvoices = await Task.Run(() => apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100), cancellationToken);
-                }
-            }
-            else
-            {
-                ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
-            }
             switch (sortOrder)
             {
                 case "vendor_desc":
-                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name);
+                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name).ToList();
                     break;
                 case "vendor":
-                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name);
+                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name).ToList();
                     break;
                 case "invoicetype_desc":
-                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd);
+                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd).ToList();
                     break;
                 case "invoicetype":
-                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd);
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd).ToList();
                     break;
                 case "date":
-                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date);
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date).ToList();
                     break;
                 default:
-                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date);
+                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).ToList();
                     break;
             }
 
