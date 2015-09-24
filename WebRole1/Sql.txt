@@ -1,0 +1,326 @@
+﻿CREATE NONCLUSTERED INDEX NCIX_APInvoices_RecordNumber 
+    ON dbo.APInvoices (Record_Number) WITH(ONLINE=ON); 
+    
+CREATE NONCLUSTERED INDEX NCIX_APInvoices_InvoiceNumber 
+    ON dbo.APInvoices (Invoice_Number) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_APInvoices_VendorNumber 
+    ON dbo.APInvoices (Vendor_Number) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_APInvoices_VendorName 
+    ON dbo.APInvoices (Vendor_Name) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_APInvoices_PONumber 
+    ON dbo.APInvoices (PO_Number) WITH(ONLINE=ON); 
+    
+     CREATE NONCLUSTERED INDEX NCIX_APInvoices_InvoiceDate 
+    ON dbo.APInvoices (Invoice_Date) WITH(ONLINE=ON); 
+
+
+
+
+
+CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_RecordNumber 
+    ON dbo.ARCustRemits (Record_Number) WITH(ONLINE=ON); 
+    
+CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_ChkDepDate 
+    ON dbo.ARCustRemits (Chk_Deposit_Dt) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_CkhSerialNum 
+    ON dbo.ARCustRemits (Chk_Serial_Num) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_ChkTransitNum 
+    ON dbo.ARCustRemits (Chk_Transit_Num) WITH(ONLINE=ON); 
+    
+    CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_ChkAccountNum 
+    ON dbo.ARCustRemits (Chk_Account_Num) WITH(ONLINE=ON); 
+    
+     CREATE NONCLUSTERED INDEX NCIX_ARCustRemits_Lockbox 
+    ON dbo.ARCustRemits (Lockbox) WITH(ONLINE=ON);
+
+
+	/****** Object:  StoredProcedure [dbo].[GetAPInvoices]    Script Date: 09/24/2015 10:53:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetAPInvoices] 
+	-- Add the parameters for the stored procedure here
+	@RecordNumber nvarchar(50) = NULL,
+	@FromInvoiceDate DateTime = NULL,
+	@ToInvoiceDate DateTime = NULL,
+	@InvoiceNumber nvarchar(50) = NULL,
+	@VendorNumber nvarchar(50) = NULL,
+	@VendorName nvarchar(50) = NULL,
+	@PONumber nvarchar(50) = NULL
+	
+AS
+
+IF ((@RecordNumber IS  NULL) AND (@FromInvoiceDate IS  NULL) AND (@ToInvoiceDate IS  NULL) AND (@InvoiceNumber IS  NULL) AND (@VendorNumber IS  NULL) AND (@VendorName IS  NULL) AND (@PONumber IS  NULL))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT TOP 100 
+	   [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]
+  
+   
+END
+ELSE IF ((@FromInvoiceDate IS NOT NULL) AND (@ToInvoiceDate IS NOT NULL))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Invoice_Date >= @FromInvoiceDate) AND
+  (Invoice_Date <= @ToInvoiceDate) AND
+  (Invoice_Number = @InvoiceNumber OR ISNULL(@InvoiceNumber, '') = '') AND
+  (Vendor_Number = @VendorNumber OR ISNULL(@VendorNumber, '') = '') AND
+  (Vendor_Name = @VendorName OR ISNULL(@VendorName, '') = '') AND
+  (PO_Number = @PONumber OR ISNULL(@PONumber, '') = '')
+   
+END
+
+ELSE IF ((@FromInvoiceDate IS NOT NULL) AND (@ToInvoiceDate IS NULL))
+
+BEGIN
+
+SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Invoice_Date = @FromInvoiceDate) AND
+  (Invoice_Number = @InvoiceNumber OR ISNULL(@InvoiceNumber, '') = '') AND
+  (Vendor_Number = @VendorNumber OR ISNULL(@VendorNumber, '') = '') AND
+  (Vendor_Name = @VendorName OR ISNULL(@VendorName, '') = '') AND
+  (PO_Number = @PONumber OR ISNULL(@PONumber, '') = '')
+
+END
+
+ELSE IF ((@FromInvoiceDate IS  NULL) AND (@ToInvoiceDate IS NOT NULL))
+
+BEGIN
+SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Invoice_Date = @ToInvoiceDate) AND
+  (Invoice_Number = @InvoiceNumber OR ISNULL(@InvoiceNumber, '') = '') AND
+  (Vendor_Number = @VendorNumber OR ISNULL(@VendorNumber, '') = '') AND
+  (Vendor_Name = @VendorName OR ISNULL(@VendorName, '') = '') AND
+  (PO_Number = @PONumber OR ISNULL(@PONumber, '') = '')
+END
+
+ELSE
+
+BEGIN
+
+SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Invoice_Number = @InvoiceNumber OR ISNULL(@InvoiceNumber, '') = '') AND
+  (Vendor_Number = @VendorNumber OR ISNULL(@VendorNumber, '') = '') AND
+  (Vendor_Name = @VendorName OR ISNULL(@VendorName, '') = '') AND
+  (PO_Number = @PONumber OR ISNULL(@PONumber, '') = '')
+  
+END
+
+
+
+GO
+
+
+
+/****** Object:  StoredProcedure [dbo].[GetARCustRemits]    Script Date: 09/24/2015 10:54:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetARCustRemits] 
+	-- Add the parameters for the stored procedure here
+	@RecordNumber nvarchar(50) = NULL,
+	@FromChkDepositDate DateTime = NULL,
+	@ToChkDepositDate DateTime = NULL,
+	@ChkSerialNumber nvarchar(50) = NULL,
+	@ChkTransitNumber nvarchar(50) = NULL,
+	@ChkAccountNumber nvarchar(50) = NULL,
+	@Lockbox nvarchar(50) = NULL
+	
+	
+AS
+
+IF ((@RecordNumber IS NULL) AND (@FromChkDepositDate IS NULL) AND (@ToChkDepositDate IS  NULL) AND (@ChkSerialNumber IS NULL) AND (@ChkTransitNumber IS  NULL) AND (@ChkAccountNumber IS NULL) AND (@Lockbox IS  NULL))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT TOP 100 
+		[Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]
+   
+END
+
+
+ELSE IF ((@FromChkDepositDate IS NOT NULL) AND (@ToChkDepositDate IS NOT NULL))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Chk_Deposit_Dt >= @FromChkDepositDate) AND
+  (Chk_Deposit_Dt <= @ToChkDepositDate) AND
+  (Chk_Serial_Num = @ChkSerialNumber OR ISNULL(@ChkSerialNumber, '') = '') AND
+  (Chk_Transit_Num = @ChkTransitNumber OR ISNULL(@ChkTransitNumber, '') = '') AND
+  (Chk_Account_Num = @ChkAccountNumber OR ISNULL(@ChkAccountNumber, '') = '') AND
+  (Lockbox = @Lockbox OR ISNULL(@Lockbox, '') = '')
+   
+END
+
+ELSE IF ((@FromChkDepositDate IS NOT NULL) AND (@ToChkDepositDate IS NULL))
+
+BEGIN
+
+SELECT [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Chk_Deposit_Dt = @FromChkDepositDate) AND
+  (Chk_Serial_Num = @ChkSerialNumber OR ISNULL(@ChkSerialNumber, '') = '') AND
+  (Chk_Transit_Num = @ChkTransitNumber OR ISNULL(@ChkTransitNumber, '') = '') AND
+  (Chk_Account_Num = @ChkAccountNumber OR ISNULL(@ChkAccountNumber, '') = '') AND
+  (Lockbox = @Lockbox OR ISNULL(@Lockbox, '') = '')
+
+END
+
+ELSE IF ((@FromChkDepositDate IS  NULL) AND (@ToChkDepositDate IS NOT NULL))
+
+BEGIN
+SELECT [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Chk_Deposit_Dt = @ToChkDepositDate) AND
+  (Chk_Serial_Num = @ChkSerialNumber OR ISNULL(@ChkSerialNumber, '') = '') AND
+  (Chk_Transit_Num = @ChkTransitNumber OR ISNULL(@ChkTransitNumber, '') = '') AND
+  (Chk_Account_Num = @ChkAccountNumber OR ISNULL(@ChkAccountNumber, '') = '') AND
+  (Lockbox = @Lockbox OR ISNULL(@Lockbox, '') = '')
+END
+
+ELSE
+
+BEGIN
+
+SELECT [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]
+  WHERE 
+  (Record_Number = @RecordNumber OR ISNULL(@RecordNumber, '') = '') AND
+  (Chk_Serial_Num = @ChkSerialNumber OR ISNULL(@ChkSerialNumber, '') = '') AND
+  (Chk_Transit_Num = @ChkTransitNumber OR ISNULL(@ChkTransitNumber, '') = '') AND
+  (Chk_Account_Num = @ChkAccountNumber OR ISNULL(@ChkAccountNumber, '') = '') AND
+  (Lockbox = @Lockbox OR ISNULL(@Lockbox, '') = '')
+  
+END
+
+
+
+GO
+
+
+
