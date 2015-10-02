@@ -243,99 +243,124 @@ namespace WebRole1.Controllers
             ViewBag.Currentvendorname = vendorname;
             ViewBag.Currentponumber = ponumber;
             ViewBag.Currentinvoicetypecd = invoicetypecd;
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.VendorNameSortParm = sortOrder == "vendor" ? "vendor_desc" : "vendor";
             ViewBag.InvoiceTypeSortParm = sortOrder == "invoicetype" ? "invoicetype_desc" : "invoicetype";
-            DateTime toinvoicedateparse; DateTime invoicedateparse;
+            DateTime? toinvoicedateparse = null; DateTime? invoicedateparse = null;
+            if (!String.IsNullOrEmpty(toinvoicedate)) { toinvoicedateparse = Convert.ToDateTime(toinvoicedate); }
+            if (!String.IsNullOrEmpty(invoicedate)) { invoicedateparse = Convert.ToDateTime(invoicedate); }
 
-            var apinvoices = from m in db.APInvoices select m;
-            
 
-            if (!String.IsNullOrEmpty(recordnumber))
+           // page = 1;
+            var apinvoices = new List<APInvoice>();
+
+            if (NoParams(recordnumber, invoicedate, toinvoicedate, invoicenumber, vendornumber, vendorname, ponumber, invoicetypecd))
             {
-                apinvoices = apinvoices.Where(a => a.Record_Number.Contains(recordnumber));
-            }
-
-            if (!String.IsNullOrEmpty(invoicenumber))
-            {
-                apinvoices = apinvoices.Where(c => c.Invoice_Number.Contains(invoicenumber));
-            }
-
-            if (!String.IsNullOrEmpty(vendornumber))
-            {
-                apinvoices = apinvoices.Where(d => d.Vendor_Number.Contains(vendornumber));
-            }
-
-            if (!String.IsNullOrEmpty(vendorname))
-            {
-                apinvoices = apinvoices.Where(e => e.Vendor_Name.Contains(vendorname));
-            }
-
-            if (!String.IsNullOrEmpty(ponumber))
-            {
-                apinvoices = apinvoices.Where(f => f.PO_Number.Contains(ponumber));
-            }
-
-            if (!String.IsNullOrEmpty(invoicetypecd))
-            {
-                apinvoices = apinvoices.Where(g => g.Invoice_Type_cd.Contains(invoicetypecd));
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (string.IsNullOrEmpty(toinvoicedate)))
-            {
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year >= invoicedateparse.Year && b.Invoice_Date.Month >= invoicedateparse.Month && b.Invoice_Date.Day >= invoicedateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                apinvoices = apinvoices.Where(b => b.Invoice_Date.Year <= toinvoicedateparse.Year && b.Invoice_Date.Month <= toinvoicedateparse.Month && b.Invoice_Date.Day <= toinvoicedateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(invoicedate)) && (!string.IsNullOrEmpty(toinvoicedate)))
-            {
-                toinvoicedateparse = Convert.ToDateTime(toinvoicedate);
-                invoicedateparse = Convert.ToDateTime(invoicedate);
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date >= invoicedateparse.Date));
-                apinvoices = apinvoices.Where(b => (b.Invoice_Date <= toinvoicedateparse.Date));
-            }
-
-             if (apinvoices.Count() > 100)
-            {
-                ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
-                apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100);
+                apinvoices = db.APInvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList();
             }
             else
             {
-                ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
+
+                SqlConnection oSQLConn = new SqlConnection();
+                oSQLConn.ConnectionString = ConfigurationManager.ConnectionStrings["APAppDBContext"].ConnectionString;
+
+                try
+                {
+                   oSQLConn.Open();
+                    SqlCommand cmd = new SqlCommand("GetAPInvoices", oSQLConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter fromInvoiceDateparam = new SqlParameter("@FromInvoiceDate", System.Data.SqlDbType.DateTime);
+                    fromInvoiceDateparam.Value = invoicedateparse;
+                    SqlParameter toInvoiceDateparam = new SqlParameter("@ToInvoiceDate", System.Data.SqlDbType.DateTime);
+                    toInvoiceDateparam.Value = toinvoicedateparse;
+
+                    cmd.Parameters.AddWithValue("@RecordNumber", recordnumber);
+                    cmd.Parameters.Add(fromInvoiceDateparam);
+                    cmd.Parameters.Add(toInvoiceDateparam);
+                    cmd.Parameters.AddWithValue("@InvoiceNumber", invoicenumber);
+                    cmd.Parameters.AddWithValue("@VendorNumber", vendornumber);
+                    cmd.Parameters.AddWithValue("@VendorName", vendorname);
+                    cmd.Parameters.AddWithValue("@PONumber", ponumber);
+
+                   
+                        using (SqlDataReader reader =  cmd.ExecuteReader())
+                        {
+                            while ( reader.Read())
+                            {
+                                apinvoices.Add(new APInvoice
+                                {
+
+                                    //APInvoiceID = reader["APInvoiceID"].ToString(),
+                                    Record_Number = reader["Record_Number"].ToString(),
+                                    Invoice_Date = Convert.ToDateTime(reader["Invoice_Date"].ToString()),
+                                    Invoice_Number = reader["Invoice_Number"].ToString(),
+                                    Vendor_Number = reader["Vendor_Number"].ToString(),
+                                    Vendor_Name = reader["Vendor_Name"].ToString(),
+                                    PO_Number = reader["PO_Number"].ToString(),
+                                    Invoice_Type_cd = (reader["Invoice_Type_cd"] != null) ? reader["Invoice_Type_cd"].ToString() : null
+
+
+                                    //etc
+                                });
+                            }
+                        }
+                    
+
+
+                }
+                catch (Exception ex)
+                {
+                }
+
+
+                if (apinvoices.Count() > 100)
+                {
+                    ViewBag.TotalAPRecords = "Search Criteria returned " + apinvoices.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
+                    if (Response.IsClientConnected)
+                    {
+                        apinvoices =  apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList();
+                    }
+                    else
+                    {
+                        apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).Take(100).ToList();
+                    }
+                }
+                else
+                {
+                    ViewBag.TotalAPRecords = "Your search criteria returned " + apinvoices.Count() + " record(s).";
+                }
+
             }
 
             switch (sortOrder)
             {
                 case "vendor_desc":
-                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name);
+                    apinvoices = apinvoices.OrderByDescending(s => s.Vendor_Name).ToList();
                     break;
                 case "vendor":
-                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name);
+                    apinvoices = apinvoices.OrderBy(s => s.Vendor_Name).ToList();
                     break;
                 case "invoicetype_desc":
-                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd);
+                    apinvoices = apinvoices.OrderByDescending(s => s.Invoice_Type_cd).ToList();
                     break;
                 case "invoicetype":
-                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd);
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Type_cd).ToList();
                     break;
                 case "date":
-                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date);
+                    apinvoices = apinvoices.OrderBy(s => s.Invoice_Date).ToList();
                     break;
                 default:
-                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date);
+                    apinvoices = apinvoices.OrderByDescending(a => a.Invoice_Date).ToList();
                     break;
             }
 
             int pageSize = 30;
             int pageNumber = (page ?? 1);
+
+
+            //return PartialView("_AP", await apinvoices.ToListAsync());
             return View(apinvoices.ToPagedList(pageNumber, pageSize));
 
         }

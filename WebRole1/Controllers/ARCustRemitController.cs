@@ -250,114 +250,122 @@ namespace WebRole1.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date" : "";
             ViewBag.LockBoxSortParm = sortOrder == "lockbox" ? "lockbox_desc" : "lockbox";
             ViewBag.CheckNumberSortParm = sortOrder == "checknumber" ? "checknumber_desc" : "checknumber";
-            DateTime tochkdepdateparse;
-            DateTime chkdepdateparse;
+            DateTime? tochkdepdateparse = null; DateTime? chkdepdateparse = null;
+            if (!String.IsNullOrEmpty(tochkdepdate)) { tochkdepdateparse = Convert.ToDateTime(tochkdepdate); }
+            if (!String.IsNullOrEmpty(chkdepdate)) { chkdepdateparse = Convert.ToDateTime(chkdepdate); }
 
 
-            var arcustremits = from m in db.ARCustRemits select m;
-            
 
-            if (!String.IsNullOrEmpty(recordnumber))
+            //page = 1;
+            var arcustremits = new List<ARCustRemit>();
+
+            if (NoParams(recordnumber, chkdepdate, tochkdepdate, checknumber, routingnumber, chkaccnumber, lockbox))
             {
-                arcustremits = arcustremits.Where(a => a.Record_Number.Contains(recordnumber));
-            }
-
-            if (!String.IsNullOrEmpty(checknumber))
-            {
-                var chksernumberfilter = checknumber;
-
-                if ((chksernumberfilter.StartsWith("*")) && (chksernumberfilter.EndsWith("*")))
-                {
-                    chksernumberfilter = chksernumberfilter.Replace("*", "");
-                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Contains(chksernumberfilter));
-                }
-                else if (chksernumberfilter.StartsWith("*"))
-                {
-                    chksernumberfilter = chksernumberfilter.Replace("*", "");
-                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().EndsWith(chksernumberfilter));
-                }
-                else if (chksernumberfilter.EndsWith("*"))
-                {
-                    chksernumberfilter = chksernumberfilter.Replace("*", "");
-                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Trim().StartsWith(chksernumberfilter));
-                }
-                else
-                {
-                    arcustremits = arcustremits.Where(e => e.Chk_Serial_Num.Equals(checknumber));
-                }
-            }
-
-            if (!String.IsNullOrEmpty(routingnumber))
-            {
-                arcustremits = arcustremits.Where(d => d.Chk_Transit_Num.Contains(routingnumber));
-            }
-
-            if (!String.IsNullOrEmpty(chkaccnumber))
-            {
-                arcustremits = arcustremits.Where(e => e.Chk_Account_Num.Contains(chkaccnumber));
-            }
-
-            if (!String.IsNullOrEmpty(lockbox))
-            {
-                arcustremits = arcustremits.Where(f => f.Lockbox.Contains(lockbox));
-            }
-
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year >= chkdepdateparse.Year && b.Chk_Deposit_Dt.Month >= chkdepdateparse.Month && b.Chk_Deposit_Dt.Day >= chkdepdateparse.Day);
-            }
-
-            if ((string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-                arcustremits = arcustremits.Where(b => b.Chk_Deposit_Dt.Year <= tochkdepdateparse.Year && b.Chk_Deposit_Dt.Month <= tochkdepdateparse.Month && b.Chk_Deposit_Dt.Day <= tochkdepdateparse.Day);
-            }
-
-            if ((!string.IsNullOrEmpty(chkdepdate)) && (!string.IsNullOrEmpty(tochkdepdate)))
-            {
-                chkdepdateparse = Convert.ToDateTime(chkdepdate);
-                tochkdepdateparse = Convert.ToDateTime(tochkdepdate);
-
-                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt >= chkdepdateparse.Date));
-                arcustremits = arcustremits.Where(b => (b.Chk_Deposit_Dt <= tochkdepdateparse.Date));
-            }
-
-            if (arcustremits.Count() > 100)
-            {
-                ViewBag.TotalARRecords = "Search Criteria returned " + arcustremits.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
-                arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100);
+                arcustremits = db.ARCustRemits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100).ToList();
             }
             else
             {
-                ViewBag.TotalARRecords = "Your search criteria returned " + arcustremits.Count() + " record(s).";
+
+                SqlConnection oSQLConn = new SqlConnection();
+                oSQLConn.ConnectionString = ConfigurationManager.ConnectionStrings["ARAppDBContext"].ConnectionString;
+
+                try
+                {
+                     oSQLConn.Open();
+                    SqlCommand cmd = new SqlCommand("GetARCustRemits", oSQLConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter fromchkdepdateparam = new SqlParameter("@FromChkDepositDate", System.Data.SqlDbType.DateTime);
+                    fromchkdepdateparam.Value = chkdepdateparse;
+                    SqlParameter tochkdepdateparam = new SqlParameter("@ToChkDepositDate", System.Data.SqlDbType.DateTime);
+                    tochkdepdateparam.Value = tochkdepdateparse;
+
+                    cmd.Parameters.AddWithValue("@RecordNumber", recordnumber);
+                    cmd.Parameters.Add(fromchkdepdateparam);
+                    cmd.Parameters.Add(tochkdepdateparam);
+                    cmd.Parameters.AddWithValue("@ChkSerialNumber", checknumber);
+                    cmd.Parameters.AddWithValue("@ChkTransitNumber", routingnumber);
+                    cmd.Parameters.AddWithValue("@ChkAccountNumber", chkaccnumber);
+                    cmd.Parameters.AddWithValue("@Lockbox", lockbox);
+
+                    
+                    using (SqlDataReader reader =  cmd.ExecuteReader())
+                    {
+                        while ( reader.Read())
+                        {
+                            arcustremits.Add(new ARCustRemit
+                            {
+
+                                //APInvoiceID = reader["APInvoiceID"].ToString(),
+                                Record_Number = reader["Record_Number"].ToString(),
+                                Chk_Deposit_Dt = Convert.ToDateTime(reader["Chk_Deposit_Dt"].ToString()),
+                                Chk_Serial_Num = reader["Chk_Serial_Num"].ToString(),
+                                Chk_Transit_Num = reader["Chk_Transit_Num"].ToString(),
+                                Chk_Account_Num = reader["Chk_Account_Num"].ToString(),
+                                Lockbox = reader["Lockbox"].ToString()
+
+
+
+                                //etc
+                            });
+                        }
+                    }
+                }
+
+
+                
+                catch (Exception ex)
+                {
+                }
+
+
+                if (arcustremits.Count() > 100)
+                {
+                    ViewBag.TotalARRecords = "Search Criteria returned " + arcustremits.Count() + " records. Only the first 100 records are displayed. Please narrow your search criteria.";
+                    if (Response.IsClientConnected)
+                    {
+                        arcustremits =  arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100).ToList();
+                    }
+                    else
+                    {
+                        arcustremits =  arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).Take(100).ToList();
+                    }
+
+                }
+                else
+                {
+                    ViewBag.TotalARRecords = "Your search criteria returned " + arcustremits.Count() + " record(s).";
+                }
             }
 
 
             switch (sortOrder)
             {
                 case "lockbox_desc":
-                    arcustremits = arcustremits.OrderByDescending(s => s.Lockbox);
+                    arcustremits = arcustremits.OrderByDescending(s => s.Lockbox).ToList();
                     break;
                 case "lockbox":
-                    arcustremits = arcustremits.OrderBy(s => s.Lockbox);
+                    arcustremits = arcustremits.OrderBy(s => s.Lockbox).ToList();
                     break;
                 case "checknumber_desc":
-                    arcustremits = arcustremits.OrderByDescending(s => s.Chk_Serial_Num);
+                    arcustremits = arcustremits.OrderByDescending(s => s.Chk_Serial_Num).ToList();
                     break;
                 case "checknumber":
-                    arcustremits = arcustremits.OrderBy(s => s.Chk_Serial_Num);
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Serial_Num).ToList();
                     break;
                 case "date":
-                    arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt);
+                    arcustremits = arcustremits.OrderBy(s => s.Chk_Deposit_Dt).ToList();
                     break;
                 default:
-                    arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt);
+                    arcustremits = arcustremits.OrderByDescending(a => a.Chk_Deposit_Dt).ToList();
                     break;
             }
 
             int pageSize = 30;
             int pageNumber = (page ?? 1);
+
+
+            //return PartialView("_AP", await apinvoices.ToListAsync());
+            
 
 
             return View(arcustremits.ToPagedList(pageNumber, pageSize));
