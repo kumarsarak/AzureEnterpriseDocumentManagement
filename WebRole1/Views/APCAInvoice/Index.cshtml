@@ -1,0 +1,232 @@
+﻿@model IEnumerable<WebRole1.Models.APCAInvoice>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
+
+
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
+
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<!--<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>-->
+
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#invoicedate").datepicker();
+    });
+
+    $(function () {
+        $("#toinvoicedate").datepicker();
+    });
+
+    var searchmethod;
+    $(document).ready(function () {
+
+        $("#searchap").click(function () {
+
+           
+            $("#loading1").addClass("isloading");
+            searchmethod = $.ajax({
+                type: "POST",
+                url: "/APCAInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: $("#invoicetypecd").val(), sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAPCA").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#divPartialViewAPCA").html("<h1>No Results</h1>");
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        });
+
+        function valueinsearchFields() {
+            if ( $("#recordnumber").val() == '' && $("#invoicedate").val() == '' && $("#invoicenumber").val() == '' && $("#vendornumber").val() == '' && $("#vendorname").val() == '' && $("#ponumber").val() == '' )            
+                return false;
+            else
+                return true;
+
+        }
+    
+        $("#cancelap").click(function () {
+            
+            if (valueinsearchFields()) {
+                searchmethod.abort();
+            }
+            $("#divPartialViewAPCA").html("<h1>Search Cancelled</h1>");
+            $("#loading1").removeClass("isloading");
+        });
+    
+    $(function () {
+        $("#recordnumber").autocomplete({
+            source: '@Url.Action("GetAutoCompleteData")'
+
+        });
+    });
+
+  /*  var valuesToSend = [];
+
+    $("#download").click(function () {
+        valuesToSend = [];
+        $('input:checkbox:checked').each(function () {
+            var value = $(this).attr('value').toString();
+            value = value.trim();
+            valuesToSend.push(value);
+        });
+        window.location.href = "/downloadDocuments.aspx?recordNumber=" + valuesToSend.toString() + "&docType=AP";
+
+    });*/
+
+        /*
+
+        $("#recordnumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        }, 1000));
+
+       
+
+        $("#invoicenumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        }, 1000));
+
+        $("#vendornumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        }, 1000));
+
+        $("#vendorname").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        }, 1000));
+
+        $("#ponumber").keyup(debounce(function () {
+            $("#loading1").addClass("isloading");
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Search",
+                data: { recordnumber: $("#recordnumber").val(), invoicedate: $("#invoicedate").val(), toinvoicedate: $("#toinvoicedate").val(), invoicenumber: $("#invoicenumber").val(), vendornumber: $("#vendornumber").val(), vendorname: $("#vendorname").val(), ponumber: $("#ponumber").val(), invoicetypecd: "", sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAP").html(data);
+                    $("#loading1").removeClass("isloading");
+                },
+                error: function () {
+                    $("#loading1").removeClass("isloading");
+                }
+
+
+            });
+
+        }, 1000));
+
+    */
+
+        
+   });
+
+
+</script>
+
+<h2>APCA Invoices</h2>
+
+
+<table class="table">
+<tr>
+<td >Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+</tr>
+<tr>
+<td>Invoice Date From: </td><td>@Html.TextBox("invoicedate")</td>
+<td>Invoice Date To: </td><td>@Html.TextBox("toinvoicedate")</td>
+</tr>
+<tr>
+<td >Invoice Number: </td><td>@Html.TextBox("invoicenumber")</td>
+</tr>
+<tr>
+<td >Vendor Number: </td><td>@Html.TextBox("vendornumber")</td>
+</tr>
+<tr>
+<td >Vendor Name: </td><td>@Html.TextBox("vendorname")</td>
+</tr>
+<tr>
+<td >PO Number: </td><td>@Html.TextBox("ponumber")</td>
+</tr>
+<tr>
+    <td style="white-space:nowrap;" colspan ="2"> 
+        <button type="button" id="searchap" class="btn btn-primary btn-sm">Search</button>
+        <button type="button" id="cancelap" class="btn btn-primary btn-sm">Cancel</button><div id="loading1"  style="min-width:64px; min-height:64px; float:right"></div>
+    </td>
+    
+</tr>
+
+</table>
+
+              
+<div id="divPartialViewAPCA">
+    @Html.Partial("_APCA")
+</div>
+
+

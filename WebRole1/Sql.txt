@@ -324,3 +324,998 @@ GO
 
 
 
+
+
+//EDM Changes for Wildcard functionality
+
+//APINVOICES
+
+ALTER TABLE [dbo].[APInvoices]
+ADD RevInvoice_Number nchar(20), RevRecord_Number nchar(30), RevVendor_Number nchar(20),  
+    RevVendor_Name nchar(42), RevPO_Number nchar(20)
+	
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) >= 2015;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2014;
+
+
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2013;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2012;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2011;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2010;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2009;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2008;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) = 2007;
+
+UPDATE  [dbo].[APInvoices]
+SET 
+RevInvoice_Number = Reverse(LTRIM(RTRIM(Invoice_Number))),
+RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+RevVendor_Number = Reverse(LTRIM(RTRIM(Vendor_Number))), 
+RevVendor_Name = Reverse(LTRIM(RTRIM(Vendor_Name))),
+RevPO_Number = Reverse(LTRIM(RTRIM(PO_Number))) 
+WHERE YEAR(Invoice_Date) < 2007;
+
+
+
+CREATE NONCLUSTERED INDEX [NCIX_APInvoices_RevInvoice_Number] ON [dbo].[APInvoices] 
+(
+	[RevInvoice_Number] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_APInvoices_RevRecord_Number] ON [dbo].[APInvoices] 
+(
+	[RevRecord_Number] ASC
+)
+GO
+
+
+CREATE NONCLUSTERED INDEX [NCIX_APInvoices_RevVendor_Number] ON [dbo].[APInvoices] 
+(
+	[RevVendor_Number] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_APInvoices_RevVendor_Name] ON [dbo].[APInvoices] 
+(
+	[RevVendor_Name] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_APInvoices_RevPO_Number] ON [dbo].[APInvoices] 
+(
+	[RevPO_Number] ASC
+)
+GO
+
+
+
+
+//TRIGGERS  FOR APINVOICES
+
+CREATE TRIGGER trgAfterInsertAPInvoices ON [dbo].[APInvoices] 
+FOR INSERT
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPInvoiceNumber nvarchar(50) ;
+	DECLARE @SPVendorNumber nvarchar(50);
+	DECLARE @SPVendorName nvarchar(50); 
+	DECLARE @SPPONumber nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPInvoiceNumber=i.Invoice_Number from inserted i;	
+	select @SPVendorNumber=i.Vendor_Number from inserted i;	
+	select @SPVendorName=i.Vendor_Name from inserted i;	
+	select @SPPONumber=i.PO_Number from inserted i;	
+	
+
+	UPDATE APInvoices
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevInvoice_Number = Reverse(LTRIM(RTRIM(@SPInvoiceNumber))),
+         RevVendor_Number = Reverse(LTRIM(RTRIM(@SPVendorNumber))), 
+         RevVendor_Name = Reverse(LTRIM(RTRIM(@SPVendorName))),
+         RevPO_Number = Reverse(LTRIM(RTRIM(@SPPONumber)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+CREATE TRIGGER trgAfterUpdateAPInvoices ON [dbo].[APInvoices] 
+FOR UPDATE
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPInvoiceNumber nvarchar(50) ;
+	DECLARE @SPVendorNumber nvarchar(50);
+	DECLARE @SPVendorName nvarchar(50); 
+	DECLARE @SPPONumber nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPInvoiceNumber=i.Invoice_Number from inserted i;	
+	select @SPVendorNumber=i.Vendor_Number from inserted i;	
+	select @SPVendorName=i.Vendor_Name from inserted i;	
+	select @SPPONumber=i.PO_Number from inserted i;	
+	
+
+	UPDATE APInvoices
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevInvoice_Number = Reverse(LTRIM(RTRIM(@SPInvoiceNumber))),
+         RevVendor_Number = Reverse(LTRIM(RTRIM(@SPVendorNumber))), 
+         RevVendor_Name = Reverse(LTRIM(RTRIM(@SPVendorName))),
+         RevPO_Number = Reverse(LTRIM(RTRIM(@SPPONumber)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+
+//ARCUSTREMIT
+
+ALTER TABLE [dbo].[ARCustRemits]
+ADD RevRecord_Number nchar(30), RevChk_Serial_Num nchar(20), RevChk_Transit_Num nchar(20), RevChk_Account_Num nchar(35), RevLockbox nchar(20)
+
+
+UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) >= 2015;
+	
+UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2014;
+	
+UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2013;
+	
+	UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2012;
+	
+	UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2011;
+	
+		UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2010;
+	
+	UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2009;
+	
+			UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) = 2008;
+	
+					UPDATE  [dbo].[ARCustRemits]
+SET RevRecord_Number = Reverse(LTRIM(RTRIM(Record_Number))),
+	RevChk_Serial_Num = Reverse(LTRIM(RTRIM(Chk_Serial_Num))),
+	RevChk_Transit_Num = Reverse(LTRIM(RTRIM(Chk_Transit_Num))),
+	RevChk_Account_Num = Reverse(LTRIM(RTRIM(Chk_Account_Num))),
+	RevLockbox = Reverse(LTRIM(RTRIM(Lockbox)))
+	WHERE YEAR(Chk_Deposit_Dt) <= 2007;
+	
+	
+
+CREATE NONCLUSTERED INDEX [NCIX_ARCustRemits_RevRecord_Number] ON [dbo].[ARCustRemits] 
+(
+	[RevRecord_Number] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_ARCustRemits_RevChk_Serial_Num] ON [dbo].[ARCustRemits] 
+(
+	[RevChk_Serial_Num] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_ARCustRemits_RevChk_Transit_Num] ON [dbo].[ARCustRemits] 
+(
+	[RevChk_Transit_Num] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_ARCustRemits_RevChk_Account_Num] ON [dbo].[ARCustRemits] 
+(
+	[RevChk_Account_Num] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [NCIX_ARCustRemits_RevLockbox] ON [dbo].[ARCustRemits] 
+(
+	[RevLockbox] ASC
+)
+GO
+
+//TRIGGERS  FOR ARCUSTREMIT
+
+CREATE TRIGGER trgAfterInsertARCustRemits ON [dbo].[ARCustRemits] 
+FOR INSERT
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPChkSerialNumber nvarchar(50) ;
+	DECLARE @SPChkTransitNumber nvarchar(50);
+	DECLARE @SPChkAccountNumber nvarchar(50); 
+	DECLARE @Lockbox nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPChkSerialNumber=i.Chk_Serial_Num from inserted i;	
+	select @SPChkTransitNumber=i.Chk_Transit_Num from inserted i;	
+	select @SPChkAccountNumber=i.Chk_Account_Num from inserted i;	
+	select @Lockbox=i.Lockbox from inserted i;	
+	
+
+	UPDATE ARCustRemits
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevChk_Serial_Num = Reverse(LTRIM(RTRIM(@SPChkSerialNumber))),
+         RevChk_Transit_Num = Reverse(LTRIM(RTRIM(@SPChkTransitNumber))), 
+         RevChk_Account_Num = Reverse(LTRIM(RTRIM(@SPChkAccountNumber))),
+         RevLockbox = Reverse(LTRIM(RTRIM(@Lockbox)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+CREATE TRIGGER trgAfterUpdateARCustRemits ON [dbo].[ARCustRemits] 
+FOR UPDATE
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPChkSerialNumber nvarchar(50) ;
+	DECLARE @SPChkTransitNumber nvarchar(50);
+	DECLARE @SPChkAccountNumber nvarchar(50); 
+	DECLARE @Lockbox nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPChkSerialNumber=i.Chk_Serial_Num from inserted i;	
+	select @SPChkTransitNumber=i.Chk_Transit_Num from inserted i;	
+	select @SPChkAccountNumber=i.Chk_Account_Num from inserted i;	
+	select @Lockbox=i.Lockbox from inserted i;	
+	
+
+	UPDATE ARCustRemits
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevChk_Serial_Num = Reverse(LTRIM(RTRIM(@SPChkSerialNumber))),
+         RevChk_Transit_Num = Reverse(LTRIM(RTRIM(@SPChkTransitNumber))), 
+         RevChk_Account_Num = Reverse(LTRIM(RTRIM(@SPChkAccountNumber))),
+         RevLockbox = Reverse(LTRIM(RTRIM(@Lockbox)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+//STored Procs
+
+USE [edm_AP_metadatabeforeupgrade]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetAPInvoices]    Script Date: 02/19/2016 14:02:49 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetAPInvoices] 
+	-- Add the parameters for the stored procedure here
+	@RecordNumber nvarchar(50) = NULL,
+	@FromInvoiceDate DateTime = NULL,
+	@ToInvoiceDate DateTime = NULL,
+	@InvoiceNumber nvarchar(50) = NULL,
+	@VendorNumber nvarchar(50) = NULL,
+	@VendorName nvarchar(50) = NULL,
+	@PONumber nvarchar(50) = NULL
+	
+AS
+
+DECLARE @SQLQuery AS nvarchar(4000);
+DECLARE @ParamDefinition AS nvarchar(2000) 
+DECLARE @SPRecordNumber nvarchar(50);
+DECLARE @SPInvoiceNumber nvarchar(50) ;
+DECLARE @SPVendorNumber nvarchar(50);
+DECLARE @SPVendorName nvarchar(50); 
+DECLARE @SPPONumber nvarchar(50); 
+
+IF ((@RecordNumber IS  NULL OR @RecordNumber = '') AND (@FromInvoiceDate IS  NULL OR @FromInvoiceDate = '') 
+AND (@ToInvoiceDate IS  NULL OR @ToInvoiceDate = '') AND (@InvoiceNumber IS  NULL OR @InvoiceNumber = '') 
+AND (@VendorNumber IS  NULL OR @VendorNumber = '') AND (@VendorName IS  NULL OR @VendorName = '') 
+AND (@PONumber IS  NULL OR @PONumber = ''))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    
+    -- Insert statements for procedure here
+	Set @SQLQuery = 'SELECT TOP 100 
+	   [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices]'
+  
+   
+END
+ELSE 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+ -- New Dynamic Sql
+	Set @SQLQuery = 'SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APInvoices] WHERE (1=1)' 
+    
+    IF @RecordNumber Is Not Null
+    BEGIN
+    
+      IF RIGHT(@RecordNumber, 1) = '*'
+      BEGIN
+       SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)'
+      END
+      ELSE IF LEFT(@RecordNumber, 1) = '*'
+      BEGIN
+		SET @SPRecordNumber = REPLACE(REVERSE(@RecordNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevRecord_Number LIKE @SPRecordNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @RecordNumber) > 0 
+	  BEGIN
+	    SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)';
+	  END
+	  ELSE IF (@RecordNumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE 
+	  BEGIN
+	    SET @SPRecordNumber = @RecordNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number = @SPRecordNumber)'
+	  END
+	  
+		
+    END
+    
+    IF ((@FromInvoiceDate = '') AND (@ToInvoiceDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+    ELSE IF ((@FromInvoiceDate IS NOT NULL AND @FromInvoiceDate != '') AND (@ToInvoiceDate IS NOT NULL AND @ToInvoiceDate != ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date >= @FromInvoiceDate) AND (Invoice_Date <= @ToInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate IS NOT NULL AND @FromInvoiceDate != '') AND (@ToInvoiceDate IS NULL OR @ToInvoiceDate = ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date = @FromInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate IS  NULL OR @FromInvoiceDate = '') AND (@ToInvoiceDate IS NOT NULL AND @ToInvoiceDate != ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date = @ToInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate = '') AND (@ToInvoiceDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+    
+    
+    IF (@InvoiceNumber Is Not Null AND @InvoiceNumber != '')
+    BEGIN
+    
+      IF RIGHT(@InvoiceNumber, 1) = '*'
+      BEGIN
+       SET @SPInvoiceNumber = REPLACE(@InvoiceNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number LIKE @SPInvoiceNumber)'
+      END
+      ELSE IF LEFT(@InvoiceNumber, 1) = '*'
+      BEGIN
+		SET @SPInvoiceNumber = REPLACE(REVERSE(@InvoiceNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevInvoice_Number LIKE @SPInvoiceNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @InvoiceNumber) > 0 
+	  BEGIN
+	    SET @SPInvoiceNumber = REPLACE(@InvoiceNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number LIKE @SPInvoiceNumber)'
+	  END
+	  ELSE IF (@InvoiceNumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPInvoiceNumber = @InvoiceNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number = @SPInvoiceNumber)'
+	  END
+	  
+		
+    END
+    
+    IF (@VendorNumber Is Not Null AND @VendorNumber != '')
+    BEGIN
+    
+      IF RIGHT(@VendorNumber, 1) = '*'
+      BEGIN
+       SET @SPVendorNumber = REPLACE(@VendorNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number LIKE @SPVendorNumber)'
+      END
+      ELSE IF LEFT(@VendorNumber, 1) = '*'
+      BEGIN
+		SET @SPVendorNumber = REPLACE(REVERSE(@VendorNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevVendor_Number LIKE @SPVendorNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @VendorNumber) > 0 
+	  BEGIN
+	    SET @SPVendorNumber = REPLACE(@VendorNumber, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number LIKE @SPVendorNumber)'
+	  END
+	  ELSE IF (@SPVendorNumber = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPVendorNumber = @VendorNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number = @SPVendorNumber)'
+	  END
+	  
+		
+    END
+    
+    
+    IF (@VendorName Is Not Null AND @VendorName != '')
+    BEGIN
+    
+      IF RIGHT(@VendorName, 1) = '*'
+      BEGIN
+       SET @SPVendorName = REPLACE(@VendorName, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name LIKE @SPVendorName)'
+      END
+      ELSE IF LEFT(@VendorName, 1) = '*'
+      BEGIN
+		SET @SPVendorName = REPLACE(REVERSE(@VendorName), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevVendor_Name LIKE @SPVendorName)'
+	  END
+	  ELSE IF CHARINDEX('*', @VendorName) > 0 
+	  BEGIN
+	    SET @SPVendorName = REPLACE(@VendorName, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name LIKE @SPVendorName)'
+	  END
+	  ELSE IF (@SPVendorName ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPVendorName = @VendorName;
+	    SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name = @SPVendorName)'
+	  END
+	  
+		
+    END
+    
+    IF (@PONumber Is Not Null AND @PONumber != '')
+    BEGIN
+    
+      IF RIGHT(@PONumber, 1) = '*'
+      BEGIN
+       SET @SPPONumber = REPLACE(@PONumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (PO_Number LIKE @SPPONumber)'
+      END
+      ELSE IF LEFT(@PONumber, 1) = '*'
+      BEGIN
+		SET @SPPONumber = REPLACE(REVERSE(@PONumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevPO_Number LIKE @SPPONumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @PONumber) > 0 
+	  BEGIN
+	    SET @SPPONumber = REPLACE(@PONumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (PO_Number LIKE @SPPONumber)'
+	  END
+	  ELSE IF (@SPPONumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPPONumber = @PONumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (PO_Number = @SPPONumber)'
+	  END
+	  
+		
+    END
+    
+    
+    
+END
+
+Set @ParamDefinition =      ' @SPRecordNumber nvarchar(50) = NULL,
+	@FromInvoiceDate DateTime = NULL,
+	@ToInvoiceDate DateTime = NULL,
+	@SPInvoiceNumber nvarchar(50) = NULL,
+	@SPVendorNumber nvarchar(50) = NULL,
+	@SPVendorName nvarchar(50) = NULL,
+	@SPPONumber nvarchar(50) = NULL'   
+    
+    
+    -- New Dynamic Sql
+   -- PRINT(@SPInvoiceNumber)
+   -- PRINT(@SPVendorNumber)
+   -- PRINT(@SQLQuery)
+    
+		Execute sp_Executesql     @SQLQuery, 
+                @ParamDefinition, 
+                @SPRecordNumber, 
+                @FromInvoiceDate, 
+                @ToInvoiceDate, 
+                @SPInvoiceNumber, 
+                @SPVendorNumber,
+                @SPVendorName,
+                @SPPONumber
+    
+
+ If @@ERROR <> 0 GoTo ErrorHandler
+    Set NoCount OFF
+    Return(0)
+  
+ErrorHandler:
+    Return(@@ERROR)
+
+
+
+
+
+
+GO
+
+
+
+USE [edm_AR_metadatabeforeupgrade]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetARCustRemits]    Script Date: 02/19/2016 14:03:23 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetARCustRemits] 
+	-- Add the parameters for the stored procedure here
+	@RecordNumber nvarchar(50) = NULL,
+	@FromChkDepositDate DateTime = NULL,
+	@ToChkDepositDate DateTime = NULL,
+	@ChkSerialNumber nvarchar(50) = NULL,
+	@ChkTransitNumber nvarchar(50) = NULL,
+	@ChkAccountNumber nvarchar(50) = NULL,
+	@Lockbox nvarchar(50) = NULL
+	
+	
+AS
+
+DECLARE @SQLQuery AS nvarchar(4000);
+DECLARE @ParamDefinition AS nvarchar(2000) 
+DECLARE @SPRecordNumber nvarchar(50);
+DECLARE @SPChkSerialNumber nvarchar(50) ;
+DECLARE @SPChkTransitNumber nvarchar(50);
+DECLARE @SPChkAccountNumber nvarchar(50); 
+DECLARE @SPLockbox nvarchar(50); 
+
+
+IF ((@RecordNumber IS NULL OR @RecordNumber = '') AND (@FromChkDepositDate IS NULL OR @FromChkDepositDate = '') 
+AND (@ToChkDepositDate IS  NULL OR @ToChkDepositDate = '') AND (@ChkSerialNumber IS NULL OR @ChkSerialNumber = '') AND 
+(@ChkTransitNumber IS  NULL OR @ChkTransitNumber = '') AND (@ChkAccountNumber IS NULL OR @ChkAccountNumber = '') AND (@Lockbox IS  NULL OR @Lockbox = ''))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	Set @SQLQuery = 'SELECT TOP 100 
+	   [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits]'
+   
+END
+ELSE
+BEGIN
+
+-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+ -- New Dynamic Sql
+	Set @SQLQuery = 'SELECT 
+	   [Record_Number]
+      ,[Chk_Deposit_Dt]
+      ,[Chk_Serial_Num]
+      ,[Chk_Transit_Num]
+      ,[Chk_Account_Num]
+      ,[Lockbox]
+      
+    FROM [dbo].[ARCustRemits] WHERE (1=1)' 
+
+    IF @RecordNumber Is Not Null
+    BEGIN
+    
+      IF RIGHT(@RecordNumber, 1) = '*'
+      BEGIN
+       SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)'
+      END
+      ELSE IF LEFT(@RecordNumber, 1) = '*'
+      BEGIN
+		SET @SPRecordNumber = REPLACE(REVERSE(@RecordNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevRecord_Number LIKE @SPRecordNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @RecordNumber) > 0 
+	  BEGIN
+	    SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)';
+	  END
+	  ELSE IF (@RecordNumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE 
+	  BEGIN
+	    SET @SPRecordNumber = @RecordNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number = @SPRecordNumber)'
+	  END
+	  
+		
+    END
+    
+    IF ((@FromChkDepositDate = '') AND (@ToChkDepositDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+    ELSE IF ((@FromChkDepositDate IS NOT NULL AND @FromChkDepositDate != '') AND (@ToChkDepositDate IS NOT NULL AND @ToChkDepositDate != ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Chk_Deposit_Dt >= @FromChkDepositDate) AND (Chk_Deposit_Dt <= @ToChkDepositDate)'
+    END
+    ELSE IF ((@FromChkDepositDate IS NOT NULL AND @FromChkDepositDate != '') AND (@ToChkDepositDate IS NULL OR @ToChkDepositDate = ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Chk_Deposit_Dt = @FromChkDepositDate)'
+    END
+    ELSE IF ((@FromChkDepositDate IS  NULL OR @FromChkDepositDate = '') AND (@ToChkDepositDate IS NOT NULL AND @ToChkDepositDate != ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery + 'AND (Chk_Deposit_Dt = @ToChkDepositDate)'
+    END
+    ELSE IF ((@FromChkDepositDate = '') AND (@ToChkDepositDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+   
+   
+   IF (@ChkSerialNumber Is Not Null AND @ChkSerialNumber != '')
+    BEGIN
+    
+      IF RIGHT(@ChkSerialNumber, 1) = '*'
+      BEGIN
+       SET @SPChkSerialNumber = REPLACE(@ChkSerialNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Chk_Serial_Num LIKE @SPChkSerialNumber)'
+      END
+      ELSE IF LEFT(@ChkSerialNumber, 1) = '*'
+      BEGIN
+		SET @SPChkSerialNumber = REPLACE(REVERSE(@ChkSerialNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevChk_Serial_Num LIKE @SPChkSerialNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @ChkSerialNumber) > 0 
+	  BEGIN
+	    SET @SPChkSerialNumber = REPLACE(@ChkSerialNumber, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Chk_Serial_Num LIKE @SPChkSerialNumber)'
+	  END
+	  ELSE IF (@SPChkSerialNumber = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPChkSerialNumber = @ChkSerialNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Chk_Serial_Num = @SPChkSerialNumber)'
+	  END
+	  
+		
+    END
+   
+   
+   IF (@ChkTransitNumber Is Not Null AND @ChkTransitNumber != '')
+    BEGIN
+    
+      IF RIGHT(@ChkTransitNumber, 1) = '*'
+      BEGIN
+       SET @SPChkTransitNumber = REPLACE(@ChkTransitNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Chk_Transit_Num LIKE @SPChkTransitNumber)'
+      END
+      ELSE IF LEFT(@ChkTransitNumber, 1) = '*'
+      BEGIN
+		SET @SPChkTransitNumber = REPLACE(REVERSE(@ChkTransitNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevChk_Transit_Num LIKE @SPChkTransitNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @ChkTransitNumber) > 0 
+	  BEGIN
+	    SET @SPChkTransitNumber = REPLACE(@ChkTransitNumber, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Chk_Transit_Num LIKE @SPChkTransitNumber)'
+	  END
+	  ELSE IF (@SPChkTransitNumber = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPChkTransitNumber = @ChkTransitNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Chk_Transit_Num = @SPChkTransitNumber)'
+	  END
+	  
+		
+    END
+    
+    
+
+IF (@ChkAccountNumber Is Not Null AND @ChkAccountNumber != '')
+    BEGIN
+    
+      IF RIGHT(@ChkAccountNumber, 1) = '*'
+      BEGIN
+       SET @SPChkAccountNumber = REPLACE(@ChkAccountNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Chk_Account_Num LIKE @SPChkAccountNumber)'
+      END
+      ELSE IF LEFT(@ChkAccountNumber, 1) = '*'
+      BEGIN
+		SET @SPChkAccountNumber = REPLACE(REVERSE(@ChkAccountNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevChk_Account_Num LIKE @SPChkAccountNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @ChkAccountNumber) > 0 
+	  BEGIN
+	    SET @SPChkAccountNumber = REPLACE(@ChkAccountNumber, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Chk_Account_Num LIKE @SPChkAccountNumber)'
+	  END
+	  ELSE IF (@SPChkAccountNumber = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPChkAccountNumber = @ChkAccountNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Chk_Account_Num = @SPChkAccountNumber)'
+	  END
+	  
+		
+    END
+   
+
+
+IF (@Lockbox Is Not Null AND @Lockbox != '')
+    BEGIN
+    
+      IF RIGHT(@Lockbox, 1) = '*'
+      BEGIN
+       SET @SPLockbox = REPLACE(@Lockbox, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Lockbox LIKE @SPLockbox)'
+      END
+      ELSE IF LEFT(@Lockbox, 1) = '*'
+      BEGIN
+		SET @SPLockbox = REPLACE(REVERSE(@Lockbox), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevLockbox LIKE @SPLockbox)'
+	  END
+	  ELSE IF CHARINDEX('*', @Lockbox) > 0 
+	  BEGIN
+	    SET @SPLockbox = REPLACE(@Lockbox, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Lockbox LIKE @SPLockbox)'
+	  END
+	  ELSE IF (@SPLockbox = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPLockbox = @Lockbox;
+	    SET @SQLQuery = @SQLQuery + 'AND (Lockbox = @SPLockbox)'
+	  END
+	  
+		
+    END
+   
+END
+
+
+
+
+Set @ParamDefinition =      ' @SPRecordNumber nvarchar(50) = NULL,
+	@FromChkDepositDate DateTime = NULL,
+	@ToChkDepositDate DateTime = NULL,
+	@SPChkSerialNumber nvarchar(50) = NULL,
+	@SPChkTransitNumber nvarchar(50) = NULL,
+	@SPChkAccountNumber nvarchar(50) = NULL,
+	@SPLockbox nvarchar(50) = NULL'   
+    
+    
+    -- New Dynamic Sql
+   -- PRINT(@SPInvoiceNumber)
+   -- PRINT(@SPVendorNumber)
+   -- PRINT(@SQLQuery)
+    
+		Execute sp_Executesql     @SQLQuery, 
+                @ParamDefinition, 
+                @SPRecordNumber, 
+                @FromChkDepositDate, 
+                @ToChkDepositDate, 
+                @SPChkSerialNumber, 
+                @SPChkTransitNumber,
+                @SPChkAccountNumber,
+                @SPLockbox
+    
+
+ If @@ERROR <> 0 GoTo ErrorHandler
+    Set NoCount OFF
+    Return(0)
+  
+ErrorHandler:
+    Return(@@ERROR)
+
+
+
+
+
+
+
+
+
+
+GO
+
+
+
+
+
+

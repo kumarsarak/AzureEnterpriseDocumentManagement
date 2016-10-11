@@ -68,7 +68,9 @@ namespace WebRole1
                  (HttpContext.Current.Session["Role"].ToString().ToLower() == "apadmin") ||
                  (HttpContext.Current.Session["Role"].ToString().ToLower() == "aradmin") ||
                  (HttpContext.Current.Session["Role"].ToString().ToLower() == "apuser") ||
-                 (HttpContext.Current.Session["Role"].ToString().ToLower() == "aruser") 
+                 (HttpContext.Current.Session["Role"].ToString().ToLower() == "aruser") ||
+                 (HttpContext.Current.Session["Role"].ToString().ToLower() == "apcaadmin") ||
+                 (HttpContext.Current.Session["Role"].ToString().ToLower() == "apcauser") 
                 )
                )
 

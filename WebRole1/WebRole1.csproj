@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\APInvoiceController.cs" />
     <Compile Include="Controllers\ARCustRemitController.cs" />
+    <Compile Include="Controllers\APCAInvoiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="downloadDocument.aspx.cs">
       <DependentUpon>downloadDocument.aspx</DependentUpon>
@@ -191,6 +192,8 @@
     <Compile Include="Models\ARAppDBContext.cs" />
     <Compile Include="Models\AppDBContext.cs" />
     <Compile Include="Models\ARCustRemit.cs" />
+    <Compile Include="Models\APCAAppDBContext.cs" />
+    <Compile Include="Models\APCAInvoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleRequestValidator.cs" />
     <Compile Include="WebRole.cs" />
@@ -329,6 +332,13 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\Shared\_AR.cshtml" />
     <Content Include="Views\Home\Unauthorized.cshtml" />
+    <Content Include="Views\Shared\_APCA.cshtml" />
+    <Content Include="Views\APCAInvoice\Copy of Index.cshtml" />
+    <Content Include="Views\APCAInvoice\Create.cshtml" />
+    <Content Include="Views\APCAInvoice\Delete.cshtml" />
+    <Content Include="Views\APCAInvoice\Details.cshtml" />
+    <Content Include="Views\APCAInvoice\Edit.cshtml" />
+    <Content Include="Views\APCAInvoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
