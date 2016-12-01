@@ -2768,6 +2768,36 @@ GO
 
 
 --Changes to Length
+
+
+DROP INDEX NCIX_APCAInvoices_InvoiceNumber ON dbo.APCAInvoices;
+GO
+
+ALTER TABLE dbo.APCAInvoices ALTER COLUMN Invoice_Number nchar(40);
+
+--Enable Index
+/****** Object:  Index [NCIX_APCAInvoices_InvoiceNumber]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_InvoiceNumber] ON [dbo].[APCAInvoices] 
+(
+	[Invoice_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+DROP INDEX NCIX_APCAInvoices_RevInvoice_Number ON dbo.APCAInvoices 
+GO
+
+ALTER TABLE dbo.APCAInvoices ALTER COLUMN RevInvoice_Number nchar(40);
+
+--Enable Index
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevInvoice_Number] ON [dbo].[APCAInvoices] 
+(
+	[RevInvoice_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+
 DROP INDEX NCIX_APCAInvoices_VendorName ON dbo.APCAInvoices 
 GO
 
@@ -2792,5 +2822,11 @@ CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevVendor_Name] ON [dbo].[APCAInvoi
 	[RevVendor_Name] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
 GO
+
+
+
+
+
+        
 
 
