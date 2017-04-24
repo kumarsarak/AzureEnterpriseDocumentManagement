@@ -1,0 +1,162 @@
+﻿@model IEnumerable<WebRole1.Models.ARCustRemit>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="~/Scripts/autocomplete.js"  type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
+<script src="~/Scripts/jquery-1.10.2.js"  type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"  type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#searchap").click(function () {
+
+           
+
+            $.ajax({
+                type: "POST",
+                url: "/ARCustRemit/Search",
+                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAR").html(data);
+                },
+                error: function () {
+                    $("#divPartialViewAR").html("<h1>No Results</h1>");
+                }
+
+
+            });
+
+        });
+    
+
+    
+        $(function () {
+            $("#recordnumber").autocomplete({
+                source: '@Url.Action("GetAutoCompleteData")'
+
+            });
+        });
+
+        $("#recordnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+     
+        $("#checknumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#routingnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#chkaccnumber").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: "/ARCustRemit/Search",
+            data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+            success: function (data) {
+                $("#divPartialViewAR").html(data);
+            },
+            error: function () {
+            }
+
+
+        });
+
+    });
+
+        $("#lockbox").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "/ARCustRemit/Search",
+                data: { recordnumber: $("#recordnumber").val(), chkdepdate: $("#chkdepdate").val(), tochkdepdate: $("#tochkdepdate").val(), checknumber: $("#checknumber").val(), routingnumber: $("#routingnumber").val(), chkaccnumber: $("#chkaccnumber").val(), lockbox: $("#lockbox").val(), sortOrder: "" },
+                success: function (data) {
+                    $("#divPartialViewAR").html(data);
+                },
+                error: function () {
+                }
+
+
+            });
+
+        });
+
+        //
+   });
+
+
+</script>
+
+<h2>AR Customer Remit</h2>
+
+<table class="table">
+<tr>
+<td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+</tr>
+<tr>
+<td>Check Deposit Date From: </td><td>@Html.TextBox("chkdepdate")@Html.DisplayName(" mm/dd/yyyy")</td>
+<td>Check Deposit Date To: </td><td>@Html.TextBox("tochkdepdate")@Html.DisplayName(" mm/dd/yyyy")</td>
+</tr>
+<tr>
+<td>Check Number: </td><td>@Html.TextBox("checknumber")</td>
+</tr>
+<tr>
+<td>Routing Number: </td><td>@Html.TextBox("routingnumber")</td>
+</tr>
+<tr>
+<td>Check Account Number: </td><td>@Html.TextBox("chkaccnumber")</td>
+</tr>
+<tr>
+<td>Lockbox: </td><td>@Html.TextBox("lockbox")</td>
+</tr>
+<tr>
+<td><input type="submit" id="searchap" value="Search" /></td>
+</tr>
+</table>
+
+              
+<div id="divPartialViewAR">
+    @Html.Partial("_AR")
+</div>

@@ -1,0 +1,483 @@
+
+
+/****** Object:  Table [dbo].[APCAInvoices]    Script Date: 06/03/2016 10:42:21 ******/
+SET ANSI_NULLS OFF
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[APCAInvoices](
+	[Record_Number] [nchar](30) NOT NULL,
+	[Invoice_Date] [date] NULL,
+	[Invoice_Number] [nchar](20) NULL,
+	[Vendor_Number] [nchar](20) NULL,
+	[Vendor_Name] [nchar](42) NULL,
+	[PO_Number] [nchar](20) NULL,
+	[Invoice_Type_cd] [nchar](1) NULL,
+	[APCAInvoiceID] [int] IDENTITY(1,1) NOT NULL,
+	[RevInvoice_Number] [nchar](20) NULL,
+	[RevRecord_Number] [nchar](30) NULL,
+	[RevVendor_Number] [nchar](20) NULL,
+	[RevVendor_Name] [nchar](42) NULL,
+	[RevPO_Number] [nchar](20) NULL,
+ CONSTRAINT [PrimaryKey_APCAInvoiceID] PRIMARY KEY CLUSTERED 
+(
+	[APCAInvoiceID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+)
+
+GO
+
+
+/****** Object:  Index [NCIX_APCAInvoices_InvoiceDate]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_InvoiceDate] ON [dbo].[APCAInvoices] 
+(
+	[Invoice_Date] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_InvoiceNumber]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_InvoiceNumber] ON [dbo].[APCAInvoices] 
+(
+	[Invoice_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_PONumber]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_PONumber] ON [dbo].[APCAInvoices] 
+(
+	[PO_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RecordNumber]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RecordNumber] ON [dbo].[APCAInvoices] 
+(
+	[Record_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RevInvoice_Number]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevInvoice_Number] ON [dbo].[APCAInvoices] 
+(
+	[RevInvoice_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RevPO_Number]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevPO_Number] ON [dbo].[APCAInvoices] 
+(
+	[RevPO_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RevRecord_Number]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevRecord_Number] ON [dbo].[APCAInvoices] 
+(
+	[RevRecord_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RevVendor_Name]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevVendor_Name] ON [dbo].[APCAInvoices] 
+(
+	[RevVendor_Name] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_RevVendor_Number]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_RevVendor_Number] ON [dbo].[APCAInvoices] 
+(
+	[RevVendor_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+
+/****** Object:  Index [NCIX_APCAInvoices_VendorName]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_VendorName] ON [dbo].[APCAInvoices] 
+(
+	[Vendor_Name] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+
+/****** Object:  Index [NCIX_APCAInvoices_VendorNumber]    Script Date: 06/03/2016 10:42:38 ******/
+CREATE NONCLUSTERED INDEX [NCIX_APCAInvoices_VendorNumber] ON [dbo].[APCAInvoices] 
+(
+	[Vendor_Number] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+GO
+
+-----
+
+CREATE TRIGGER trgAfterInsertAPCAInvoices ON [dbo].[APCAInvoices] 
+FOR INSERT
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPInvoiceNumber nvarchar(50) ;
+	DECLARE @SPVendorNumber nvarchar(50);
+	DECLARE @SPVendorName nvarchar(50); 
+	DECLARE @SPPONumber nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPInvoiceNumber=i.Invoice_Number from inserted i;	
+	select @SPVendorNumber=i.Vendor_Number from inserted i;	
+	select @SPVendorName=i.Vendor_Name from inserted i;	
+	select @SPPONumber=i.PO_Number from inserted i;	
+	
+
+	UPDATE APCAInvoices
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevInvoice_Number = Reverse(LTRIM(RTRIM(@SPInvoiceNumber))),
+         RevVendor_Number = Reverse(LTRIM(RTRIM(@SPVendorNumber))), 
+         RevVendor_Name = Reverse(LTRIM(RTRIM(@SPVendorName))),
+         RevPO_Number = Reverse(LTRIM(RTRIM(@SPPONumber)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+CREATE TRIGGER trgAfterUpdateAPCAInvoices ON [dbo].[APCAInvoices] 
+FOR UPDATE
+AS
+
+	DECLARE @SPRecordNumber nvarchar(50);
+	DECLARE @SPInvoiceNumber nvarchar(50) ;
+	DECLARE @SPVendorNumber nvarchar(50);
+	DECLARE @SPVendorName nvarchar(50); 
+	DECLARE @SPPONumber nvarchar(50); 
+	
+
+	select @SPRecordNumber=i.Record_Number from inserted i;	
+	select @SPInvoiceNumber=i.Invoice_Number from inserted i;	
+	select @SPVendorNumber=i.Vendor_Number from inserted i;	
+	select @SPVendorName=i.Vendor_Name from inserted i;	
+	select @SPPONumber=i.PO_Number from inserted i;	
+	
+
+	UPDATE APCAInvoices
+     SET RevRecord_Number = Reverse(LTRIM(RTRIM(@SPRecordNumber))), 
+		 RevInvoice_Number = Reverse(LTRIM(RTRIM(@SPInvoiceNumber))),
+         RevVendor_Number = Reverse(LTRIM(RTRIM(@SPVendorNumber))), 
+         RevVendor_Name = Reverse(LTRIM(RTRIM(@SPVendorName))),
+         RevPO_Number = Reverse(LTRIM(RTRIM(@SPPONumber)))
+     WHERE  Record_Number = @SPRecordNumber;
+
+GO
+
+
+
+
+
+
+--STORED PROC  GETAPCAINVOICES
+
+/****** Object:  StoredProcedure [dbo].[GetAPCAInvoices]    Script Date: 04/05/2016 09:26:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetAPCAInvoices] 
+	-- Add the parameters for the stored procedure here
+	@RecordNumber nvarchar(50) = NULL,
+	@FromInvoiceDate DateTime = NULL,
+	@ToInvoiceDate DateTime = NULL,
+	@InvoiceNumber nvarchar(50) = NULL,
+	@VendorNumber nvarchar(50) = NULL,
+	@VendorName nvarchar(50) = NULL,
+	@PONumber nvarchar(50) = NULL
+	
+AS
+
+DECLARE @SQLQuery AS nvarchar(4000);
+DECLARE @ParamDefinition AS nvarchar(2000) 
+DECLARE @SPRecordNumber nvarchar(50);
+DECLARE @SPInvoiceNumber nvarchar(50) ;
+DECLARE @SPVendorNumber nvarchar(50);
+DECLARE @SPVendorName nvarchar(50); 
+DECLARE @SPPONumber nvarchar(50); 
+
+IF ((@RecordNumber IS  NULL OR @RecordNumber = '') AND (@FromInvoiceDate IS  NULL OR @FromInvoiceDate = '') 
+AND (@ToInvoiceDate IS  NULL OR @ToInvoiceDate = '') AND (@InvoiceNumber IS  NULL OR @InvoiceNumber = '') 
+AND (@VendorNumber IS  NULL OR @VendorNumber = '') AND (@VendorName IS  NULL OR @VendorName = '') 
+AND (@PONumber IS  NULL OR @PONumber = ''))
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    
+    -- Insert statements for procedure here
+	Set @SQLQuery = 'SELECT TOP 100 
+	   [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APCAInvoices]'
+  
+   
+END
+ELSE 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+ -- New Dynamic Sql
+	Set @SQLQuery = 'SELECT [Record_Number]
+      ,[Invoice_Date]
+      ,[Invoice_Number]
+      ,[Vendor_Number]
+      ,[Vendor_Name]
+      ,[PO_Number]
+      ,[Invoice_Type_cd]
+      
+    FROM [dbo].[APCAInvoices] WHERE (1=1)' 
+    
+    IF @RecordNumber Is Not Null
+    BEGIN
+    
+      IF RIGHT(@RecordNumber, 1) = '*'
+      BEGIN
+       SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)'
+      END
+      ELSE IF LEFT(@RecordNumber, 1) = '*'
+      BEGIN
+		SET @SPRecordNumber = REPLACE(REVERSE(@RecordNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevRecord_Number LIKE @SPRecordNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @RecordNumber) > 0 
+	  BEGIN
+	    SET @SPRecordNumber = REPLACE(@RecordNumber, '*', '%');
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number LIKE @SPRecordNumber)';
+	  END
+	  ELSE IF (@RecordNumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE 
+	  BEGIN
+	    SET @SPRecordNumber = @RecordNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Record_Number = @SPRecordNumber)'
+	  END
+	  
+		
+    END
+    
+    IF ((@FromInvoiceDate = '') AND (@ToInvoiceDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+    ELSE IF ((@FromInvoiceDate IS NOT NULL AND @FromInvoiceDate != '') AND (@ToInvoiceDate IS NOT NULL AND @ToInvoiceDate != ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date >= @FromInvoiceDate) AND (Invoice_Date <= @ToInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate IS NOT NULL AND @FromInvoiceDate != '') AND (@ToInvoiceDate IS NULL OR @ToInvoiceDate = ''))
+    BEGIN
+	   SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date = @FromInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate IS  NULL OR @FromInvoiceDate = '') AND (@ToInvoiceDate IS NOT NULL AND @ToInvoiceDate != ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery + 'AND (Invoice_Date = @ToInvoiceDate)'
+    END
+    ELSE IF ((@FromInvoiceDate = '') AND (@ToInvoiceDate = ''))
+    BEGIN
+       SET 	@SQLQuery = @SQLQuery 
+    END
+    
+    
+    IF (@InvoiceNumber Is Not Null AND @InvoiceNumber != '')
+    BEGIN
+    
+      IF RIGHT(@InvoiceNumber, 1) = '*'
+      BEGIN
+       SET @SPInvoiceNumber = REPLACE(@InvoiceNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number LIKE @SPInvoiceNumber)'
+      END
+      ELSE IF LEFT(@InvoiceNumber, 1) = '*'
+      BEGIN
+		SET @SPInvoiceNumber = REPLACE(REVERSE(@InvoiceNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevInvoice_Number LIKE @SPInvoiceNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @InvoiceNumber) > 0 
+	  BEGIN
+	    SET @SPInvoiceNumber = REPLACE(@InvoiceNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number LIKE @SPInvoiceNumber)'
+	  END
+	  ELSE IF (@InvoiceNumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPInvoiceNumber = @InvoiceNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Invoice_Number = @SPInvoiceNumber)'
+	  END
+	  
+		
+    END
+    
+    IF (@VendorNumber Is Not Null AND @VendorNumber != '')
+    BEGIN
+    
+      IF RIGHT(@VendorNumber, 1) = '*'
+      BEGIN
+       SET @SPVendorNumber = REPLACE(@VendorNumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number LIKE @SPVendorNumber)'
+      END
+      ELSE IF LEFT(@VendorNumber, 1) = '*'
+      BEGIN
+		SET @SPVendorNumber = REPLACE(REVERSE(@VendorNumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevVendor_Number LIKE @SPVendorNumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @VendorNumber) > 0 
+	  BEGIN
+	    SET @SPVendorNumber = REPLACE(@VendorNumber, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number LIKE @SPVendorNumber)'
+	  END
+	  ELSE IF (@SPVendorNumber = '')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPVendorNumber = @VendorNumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (Vendor_Number = @SPVendorNumber)'
+	  END
+	  
+		
+    END
+    
+    
+    IF (@VendorName Is Not Null AND @VendorName != '')
+    BEGIN
+    
+      IF RIGHT(@VendorName, 1) = '*'
+      BEGIN
+       SET @SPVendorName = REPLACE(@VendorName, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name LIKE @SPVendorName)'
+      END
+      ELSE IF LEFT(@VendorName, 1) = '*'
+      BEGIN
+		SET @SPVendorName = REPLACE(REVERSE(@VendorName), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevVendor_Name LIKE @SPVendorName)'
+	  END
+	  ELSE IF CHARINDEX('*', @VendorName) > 0 
+	  BEGIN
+	    SET @SPVendorName = REPLACE(@VendorName, '*', '%');
+        SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name LIKE @SPVendorName)'
+	  END
+	  ELSE IF (@SPVendorName ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPVendorName = @VendorName;
+	    SET @SQLQuery = @SQLQuery + 'AND (Vendor_Name = @SPVendorName)'
+	  END
+	  
+		
+    END
+    
+    IF (@PONumber Is Not Null AND @PONumber != '')
+    BEGIN
+    
+      IF RIGHT(@PONumber, 1) = '*'
+      BEGIN
+       SET @SPPONumber = REPLACE(@PONumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (PO_Number LIKE @SPPONumber)'
+      END
+      ELSE IF LEFT(@PONumber, 1) = '*'
+      BEGIN
+		SET @SPPONumber = REPLACE(REVERSE(@PONumber), '*', '%');
+		SET @SQLQuery = @SQLQuery + 'AND (RevPO_Number LIKE @SPPONumber)'
+	  END
+	  ELSE IF CHARINDEX('*', @PONumber) > 0 
+	  BEGIN
+	    SET @SPPONumber = REPLACE(@PONumber, '*', '%');
+       SET @SQLQuery = @SQLQuery + 'AND (PO_Number LIKE @SPPONumber)'
+	  END
+	  ELSE IF (@SPPONumber ='')
+	  BEGIN
+	  SET @SQLQuery = @SQLQuery
+	  END
+	  ELSE
+	  BEGIN
+	    SET @SPPONumber = @PONumber;
+	    SET @SQLQuery = @SQLQuery + 'AND (PO_Number = @SPPONumber)'
+	  END
+	  
+		
+    END
+    
+    
+    
+END
+
+Set @ParamDefinition =      ' @SPRecordNumber nvarchar(50) = NULL,
+	@FromInvoiceDate DateTime = NULL,
+	@ToInvoiceDate DateTime = NULL,
+	@SPInvoiceNumber nvarchar(50) = NULL,
+	@SPVendorNumber nvarchar(50) = NULL,
+	@SPVendorName nvarchar(50) = NULL,
+	@SPPONumber nvarchar(50) = NULL'   
+    
+    
+    -- New Dynamic Sql
+   -- PRINT(@SPInvoiceNumber)
+   -- PRINT(@SPVendorNumber)
+   -- PRINT(@SQLQuery)
+    
+		Execute sp_Executesql     @SQLQuery, 
+                @ParamDefinition, 
+                @SPRecordNumber, 
+                @FromInvoiceDate, 
+                @ToInvoiceDate, 
+                @SPInvoiceNumber, 
+                @SPVendorNumber,
+                @SPVendorName,
+                @SPPONumber
+    
+
+ If @@ERROR <> 0 GoTo ErrorHandler
+    Set NoCount OFF
+    Return(0)
+  
+ErrorHandler:
+    Return(@@ERROR)
+
+
+
+
+
+
+GO

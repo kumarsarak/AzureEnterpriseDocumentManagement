@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<WebRole1.Models.APInvoice>
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Record_Number")
+        </th>
+        <th>
+            @Ajax.ActionLink("Invoice_Date", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+           
+            
+        </th>
+        <th>
+            @Html.DisplayName("Invoice_Number")
+        </th>
+        <th>
+            @Html.DisplayName("Vendor_Number")
+        </th>
+        <th>
+            @Html.ActionLink("Vendor_Name", "Index", new {sortOrder = ViewBag.VendorNameSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+            
+        </th>
+        <th>
+            @Html.DisplayName("PO_Number")
+        </th>
+        <th>
+            @Html.ActionLink("Invoice_Type_cd", "Index", new {sortOrder = ViewBag.InvoiceTypeSortParm, recordnumber = ViewBag.Currentrecordnumber, invoicedate = ViewBag.Currentinvoicedate, toinvoicedate = ViewBag.Currenttoinvoicedate, invoicenumber = ViewBag.Currentinvoicenumber, vendornumber = ViewBag.Currentvendornumber, vendorname = ViewBag.Currentvendorname, ponumber = ViewBag.Currentponumber, invoicetypecd = ViewBag.Currentinvoicetypecd }, new AjaxOptions{UpdateTargetId = "divPartialViewAP"})
+            
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PO_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Type_cd)
+        </td>
+        <td>
+            @{var separator = "|";}
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a>
+            @if (System.Web.HttpContext.Current.Session["Role"] != null && System.Web.HttpContext.Current.Session["Role"].ToString() == "APAdmin")
+            {   @separator
+                @Html.ActionLink("  Delete", "Delete", new { id = item.APInvoiceID })
+            }
+        </td>
+        
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index") + "?" +
+    "recordnumber="+ViewBag.Currentrecordnumber+"&invoicedate="+ViewBag.Currentinvoicedate+"&toinvoicedate="+ViewBag.Currenttoinvoicedate+"&invoicenumber="+ViewBag.Currentinvoicenumber+"&vendornumber="+ViewBag.Currentvendornumber+"&vendorname="+ViewBag.Currentvendorname+"&ponumber="+ViewBag.Currentponumber+"&invoicetypecd="+ViewBag.Currentinvoicetypecd+"&page="+page+"&sortOrder="+ViewBag.CurrentSort , PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPartialViewAP" }))

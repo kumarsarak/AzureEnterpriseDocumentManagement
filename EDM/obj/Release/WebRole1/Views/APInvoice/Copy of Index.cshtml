@@ -1,0 +1,135 @@
+﻿@model IEnumerable<WebRole1.Models.APInvoice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        $("recordnumber").keydown(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/APInvoice/Index",
+                data: $("#recordnumber").val(),
+                success: function (data) {
+                    
+                },
+                error: function()
+                {
+                }
+
+                
+            });
+
+    });
+
+                     });
+
+
+</script>
+
+<h2>Index</h2>
+<!--
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    -->
+
+<p>
+    @using (Html.BeginForm("Index", "APInvoice", FormMethod.Get))
+    {
+    <p>
+<table class="table">
+<tr>
+<td>Record Number: </td><td>@Html.TextBox("recordnumber")</td>
+</tr>
+<tr>
+<td>Invoice Date: </td><td>@Html.TextBox("invoicedate")</td>
+</tr>
+<tr>
+<td>Invoice_Number: </td><td>@Html.TextBox("invoicenumber")</td>
+</tr>
+<tr>
+<td>Vendor_Number: </td><td>@Html.TextBox("vendornumber")</td>
+</tr>
+<tr>
+<td>Vendor_Name: </td><td>@Html.TextBox("vendorname")</td>
+</tr>
+<tr>
+<td>Invoice Date: </td><td>@Html.TextBox("ponumber")</td>
+</tr>
+<tr>
+<td>PO Number: </td><td>@Html.TextBox("invoicetypecd")</td>
+</tr>
+<tr>
+<td><input type="submit" value="Search" /></td>
+</tr>
+</table>
+              
+    </p>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Record_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PO_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Type_cd)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PO_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_Type_cd)
+        </td>
+        <td>
+            <!--
+            @Html.ActionLink("Edit", "Edit", new { id=item.APInvoiceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.APInvoiceID }) |
+                -->
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AP">Download</a> |
+            @Html.ActionLink("Delete", "Delete", new { id=item.APInvoiceID })
+        </td>
+    </tr>
+}
+
+</table>

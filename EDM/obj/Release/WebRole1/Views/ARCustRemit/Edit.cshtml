@@ -1,0 +1,98 @@
+﻿@model WebRole1.Models.ARCustRemit
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ARCustRemit</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ARCustRemitID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Record_Number, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Record_Number)
+                @Html.ValidationMessageFor(model => model.Record_Number)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Chk_Deposit_Dt, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Chk_Deposit_Dt)
+                @Html.ValidationMessageFor(model => model.Chk_Deposit_Dt)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Chk_Serial_Num, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Chk_Serial_Num)
+                @Html.ValidationMessageFor(model => model.Chk_Serial_Num)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Chk_Transit_Num, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Chk_Transit_Num)
+                @Html.ValidationMessageFor(model => model.Chk_Transit_Num)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Chk_Account_Num, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Chk_Account_Num)
+                @Html.ValidationMessageFor(model => model.Chk_Account_Num)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lockbox, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lockbox)
+                @Html.ValidationMessageFor(model => model.Lockbox)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Has_Action_Item, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Has_Action_Item)
+                @Html.ValidationMessageFor(model => model.Has_Action_Item)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lawson_Customer, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lawson_Customer)
+                @Html.ValidationMessageFor(model => model.Lawson_Customer)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

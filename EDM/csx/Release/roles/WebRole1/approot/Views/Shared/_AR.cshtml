@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<WebRole1.Models.ARCustRemit>
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+<table class="table">
+    <tr>
+       <th>
+            @Html.DisplayName("Record_Number")
+        </th>
+        <th>
+            @Ajax.ActionLink("Chk_Deposit_Dt", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, tochkdepdate = ViewBag.Currenttochkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
+           
+            
+        </th>
+        
+        <th>
+           
+            Check Number
+        </th>
+        <th>
+           
+            Routing Number
+        </th>
+        <th>
+            @Html.DisplayName("Chk_Account_Num")
+        </th>
+        <th>
+            @Ajax.ActionLink("LockBox", "Index", new { sortOrder = ViewBag.DateSortParm, recordnumber = ViewBag.Currentrecordnumber, chkdepdate = ViewBag.Currentchkdepdate, tochkdepdate = ViewBag.Currenttochkdepdate, checknumber = ViewBag.Currentchecknumber, routingnumber = ViewBag.Currentroutingnumber, chkaccnumber = ViewBag.Currentchkaccnumber, lockbox = ViewBag.Currentlockbox}, new AjaxOptions{UpdateTargetId = "divPartialViewAR"})
+        </th>
+       
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Deposit_Dt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Serial_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Transit_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chk_Account_Num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lockbox)
+        </td>
+        <!--
+        <td>
+            @Html.DisplayFor(modelItem => item.Has_Action_Item)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lawson_Customer)
+        </td>
+            -->
+        <td>
+             @{var separator = "|";}
+            <a href="/downloadDocument.aspx?recordNumber=@item.Record_Number&docType=AR">Download</a> 
+            @if (System.Web.HttpContext.Current.Session["Role"] != null && System.Web.HttpContext.Current.Session["Role"].ToString() == "ARAdmin")
+            {   @separator
+                @Html.ActionLink("  Delete", "Delete", new { id = item.ARCustRemitID })
+            }
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index") + "?" +
+    "recordnumber="+ViewBag.Currentrecordnumber+"&chkdepdate="+ViewBag.Currentchkdepdate+"&tochkdepdate="+ViewBag.Currenttochkdepdate+"&checknumber="+ViewBag.Currentchecknumber+"&routingnumber="+ViewBag.Currentroutingnumber+"&chkaccnumber="+ViewBag.Currentchkaccnumber+"&lockbox="+ViewBag.Currentlockbox+"&page="+page+"&sortOrder="+ViewBag.CurrentSort , PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPartialViewAR" }))

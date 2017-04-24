@@ -1,0 +1,252 @@
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\WebRole1.dll.config
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\WebRole1.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\WebRole1.pdb
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Antlr3.Runtime.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\EntityFramework.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\EntityFramework.SqlServer.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.Edm.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.OData.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.Services.Client.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Web.Infrastructure.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Newtonsoft.Json.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Spatial.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Helpers.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Mvc.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Optimization.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Razor.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.Deployment.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.Razor.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\WebGrease.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.StorageUtility.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\EntityFramework.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\EntityFramework.SqlServer.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.Edm.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.OData.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.Data.Services.Client.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Spatial.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Helpers.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Mvc.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Optimization.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.Razor.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.Deployment.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\System.Web.WebPages.Razor.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Newtonsoft.Json.xml
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\Antlr3.Runtime.pdb
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\de\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\es\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\fr\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\it\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ja\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ko\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ru\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\de\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\es\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\fr\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\it\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ja\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ko\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ru\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.OData.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\de\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\es\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\fr\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\it\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ja\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ko\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ru\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Services.Client.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\de\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\es\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\fr\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\it\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ja\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ko\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\ru\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hans\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\bin\zh-Hant\System.Spatial.resources.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\obj\Debug\WebRole1.csprojResolveAssemblyReference.cache
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\obj\Debug\WebRole1.dll
+c:\Users\10003668\documents\visual studio 2013\Projects\EDM\WebRole1\obj\Debug\WebRole1.pdb
+\\saravanadesktop\EDM\EDM\WebRole1\bin\WebRole1.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\WebRole1.pdb
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Antlr3.Runtime.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\EntityFramework.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\EntityFramework.SqlServer.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.Edm.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.OData.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.Services.Client.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Web.Infrastructure.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Newtonsoft.Json.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Spatial.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Helpers.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Mvc.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Optimization.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Razor.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.Deployment.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.Razor.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\WebGrease.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.StorageUtility.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\EntityFramework.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\EntityFramework.SqlServer.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.Edm.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.OData.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.Data.Services.Client.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Spatial.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Helpers.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Mvc.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Optimization.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.Razor.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.Deployment.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.Web.WebPages.Razor.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Newtonsoft.Json.xml
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Antlr3.Runtime.pdb
+\\saravanadesktop\EDM\EDM\WebRole1\bin\de\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\es\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\it\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\de\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\es\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\it\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.OData.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\de\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\es\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\it\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Services.Client.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\de\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\es\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\fr\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\it\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ja\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ko\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\ru\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hans\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\zh-Hant\System.Spatial.resources.dll
+\\saravanadesktop\EDM\EDM\WebRole1\obj\Debug\WebRole1.csprojResolveAssemblyReference.cache
+\\saravanadesktop\EDM\EDM\WebRole1\obj\Debug\WebRole1.dll
+\\saravanadesktop\EDM\EDM\WebRole1\obj\Debug\WebRole1.pdb
+\\saravanadesktop\EDM\EDM\WebRole1\bin\Microsoft.IdentityModel.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll
+\\saravanadesktop\EDM\EDM\WebRole1\bin\en\Microsoft.IdentityModel.resources.dll
+C:\EDM\EDM\WebRole1\bin\WebRole1.dll
+C:\EDM\EDM\WebRole1\bin\WebRole1.pdb
+C:\EDM\EDM\WebRole1\bin\Antlr3.Runtime.dll
+C:\EDM\EDM\WebRole1\bin\EntityFramework.dll
+C:\EDM\EDM\WebRole1\bin\EntityFramework.SqlServer.dll
+C:\EDM\EDM\WebRole1\bin\ICSharpCode.SharpZipLib.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.Edm.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.OData.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.Services.Client.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.IdentityModel.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.Web.Infrastructure.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.dll
+C:\EDM\EDM\WebRole1\bin\Newtonsoft.Json.dll
+C:\EDM\EDM\WebRole1\bin\PagedList.dll
+C:\EDM\EDM\WebRole1\bin\PagedList.Mvc.dll
+C:\EDM\EDM\WebRole1\bin\System.IdentityModel.Tokens.ValidatingIssuerNameRegistry.dll
+C:\EDM\EDM\WebRole1\bin\System.Spatial.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.Helpers.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.Mvc.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.Optimization.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.Razor.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.Deployment.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.dll
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.Razor.dll
+C:\EDM\EDM\WebRole1\bin\WebGrease.dll
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.StorageUtility.dll
+C:\EDM\EDM\WebRole1\bin\EntityFramework.xml
+C:\EDM\EDM\WebRole1\bin\EntityFramework.SqlServer.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.Edm.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.OData.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.Data.Services.Client.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Diagnostics.xml
+C:\EDM\EDM\WebRole1\bin\Microsoft.WindowsAzure.Storage.xml
+C:\EDM\EDM\WebRole1\bin\PagedList.xml
+C:\EDM\EDM\WebRole1\bin\PagedList.Mvc.xml
+C:\EDM\EDM\WebRole1\bin\System.Spatial.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.Helpers.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.Mvc.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.Optimization.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.Razor.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.Deployment.xml
+C:\EDM\EDM\WebRole1\bin\System.Web.WebPages.Razor.xml
+C:\EDM\EDM\WebRole1\bin\Newtonsoft.Json.xml
+C:\EDM\EDM\WebRole1\bin\Antlr3.Runtime.pdb
+C:\EDM\EDM\WebRole1\bin\de\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\es\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\it\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
+C:\EDM\EDM\WebRole1\bin\de\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\es\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\it\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.OData.resources.dll
+C:\EDM\EDM\WebRole1\bin\de\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\es\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\fr\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\it\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\ja\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\ko\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\ru\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hant\Microsoft.Data.Services.Client.resources.dll
+C:\EDM\EDM\WebRole1\bin\en\Microsoft.IdentityModel.resources.dll
+C:\EDM\EDM\WebRole1\bin\de\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\es\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\fr\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\it\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\ja\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\ko\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\ru\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hans\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\bin\zh-Hant\System.Spatial.resources.dll
+C:\EDM\EDM\WebRole1\obj\Debug\WebRole1.dll
+C:\EDM\EDM\WebRole1\obj\Debug\WebRole1.pdb
+C:\EDM\EDM\WebRole1\obj\Debug\WebRole1.csprojResolveAssemblyReference.cache
